@@ -1,0 +1,36 @@
+[
+    {
+        "id" : 12345,
+        "name" : "Prozess A",
+        "inputArr" : [
+            {
+                "idInputArr" : 321,
+                "input" : "Arthur",
+                "datatype" : "text",
+                "isEdit" : false,
+                "editing" : "......",
+                "id" : 1234
+            },
+            {
+                "idInputArr" : 321,
+                "input" : "eingabe 2",
+                "datatype" : "boolean",
+                "isEdit" : false,
+                "editing" : "xXxxx",
+                "id" : 4321
+            }
+        ],
+        "outputArr" : [
+            {
+                "idOutputArr" : 321,
+                "input" : "Fullname",
+                "datatype" : "text",
+                "id" : 4321,
+                "data" : "Arthur Becker"
+            }
+        ]
+    },
+    {
+
+    }
+]

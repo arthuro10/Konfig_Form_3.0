@@ -1,0 +1,79 @@
+[
+    {
+        "id" : 323432,
+        "name" : "Prozess JSON_from_Db",
+        "inputArr" : [
+            {
+                "idInputArr" : 321,
+                "input" : "Test",
+                "datatype" : "text",
+                "isEdit" : false,
+                "editing" : " ",
+                "id" : 1234
+            },
+            {
+                "idInputArr" : 123,
+                "input" : "10",
+                "datatype" : "number",
+                "isEdit" : true,
+                "editing" : "",
+                "id" : 4321
+            }
+        ],
+        "outputArr" : [
+            {
+                "idOutputArr" : 555,
+                "input" : "isOkay",
+                "datatype" : "bool",
+                "id" : 4321,
+                "data" : ""
+            }
+        ]
+    },
+    {
+        "id" : 323432,
+        "name" : "Prozess B JSON_from_Db",
+        "inputArr" : [
+            {
+                "idInputArr" : 222,
+                "input" : "isTest",
+                "datatype" : "bool",
+                "isEdit" : false,
+                "editing" : " ",
+                "id" : 12334
+            },
+            {
+                "idInputArr" : 333,
+                "input" : "10",
+                "datatype" : "number",
+                "isEdit" : true,
+                "editing" : "",
+                "id" : 66321
+            },
+            {
+                "idInputArr" : 333,
+                "input" : "funktioniert",
+                "datatype" : "text",
+                "isEdit" : true,
+                "editing" : "",
+                "id" : 1111
+            }
+        ],
+        "outputArr" : [
+            {
+                "idOutputArr" : 555,
+                "input" : "final",
+                "datatype" : "text",
+                "id" : 4321,
+                "data" : ""
+            },
+            {
+                "idOutputArr" : 545,
+                "input" : "isOkay",
+                "datatype" : "bool",
+                "id" : 21,
+                "data" : ""
+            }
+        ]
+    }
+]
