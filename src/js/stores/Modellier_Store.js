@@ -27,6 +27,10 @@ class ModellierStore {
         this.allProzesses.push(item);
 
     }
+    @action deleteOneIn_allProzesses(item) {
+        console.log();
+
+    }
 
     @action changeEditValues(id,value) {
         this.dieProzesse.forEach(item => {
@@ -36,6 +40,10 @@ class ModellierStore {
                 console.log(item);
 
                 if(id === item.InputArr[j].id ){
+                    if(item.OutputArr[j] === undefined){
+                        alert("Error: JSON File error");
+                        return;
+                    }
                     item.InputArr[j].editing = value;
                     // Weil nur editierbare Komponenten diese Funktion hier aufrufen
                     // Und damit sogleich auch die Output Daten sind
@@ -96,6 +104,43 @@ class ModellierStore {
             body: JSON.stringify({
                 prozess : newProzess,
                 id : uuid()
+            })
+          }).then(response => {
+                if (response.status >= 200 && response.status < 300) {
+                    response.json().then(json => {
+                        console.log("json");
+                        console.log(json);
+                    });
+
+                } else {
+                    this.error = "Error on fetching";
+                }
+            })
+            .catch(
+                error => {
+                    this.error = "Error on fetching";
+                    throw error;
+                }
+            );
+    }
+    @action updateProzess(_prozess) {
+
+        const prozessItem = this.allProzesses.filter(item => {
+            let prozessIdObj = [...item.prozess];
+            console.log(prozessIdObj[0].prozessId);
+            return _prozess[0].prozessId === prozessIdObj[0].prozessId
+        })
+
+        return fetch(this.baseURL+ 'api/prozess/update', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            }, 
+            body: JSON.stringify({
+                prozess : _prozess,
+                id : prozessItem[0].id
             })
           }).then(response => {
                 if (response.status >= 200 && response.status < 300) {

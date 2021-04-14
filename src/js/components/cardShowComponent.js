@@ -9,6 +9,8 @@ const zentriert = {
 function ShowCard_Content (props) {
     return(
                   <Card.Content extra>
+                    <Card.Header>Show</Card.Header>
+                    <Divider></Divider>
                     <Form >
                         <Form.Field>
                         <Header>Input: {props.inputName}</Header>

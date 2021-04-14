@@ -8,6 +8,12 @@ import modellierStore from "../stores/Modellier_Store"
 export default class Start_Page extends React.Component {
     constructor(props){
         super(props);
+        //modellierStore.fetchProzesse();
+        //modellierStore.fetchCreateProzesse();
+        modellierStore.resetDieProzess();
+    }
+
+    componentDidMount(){
         modellierStore.fetchProzesse();
         modellierStore.fetchCreateProzesse();
     }

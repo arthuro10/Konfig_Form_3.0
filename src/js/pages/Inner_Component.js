@@ -1,6 +1,6 @@
 import React from "react"
 import uuid from 'react-uuid';
-import { Grid, Form,Card, Icon, Modal, Button, Header, Input, Label, Divider, Segment, GridColumn, Dropdown} from 'semantic-ui-react'
+import { Grid, Form,Card, Icon, Modal, Button, Header, Input, Label, Radio, Segment, Divider, Dropdown} from 'semantic-ui-react'
 import { observer } from "mobx-react";
 
 // der Store auf den gehört werden soll wird hier eingebunden
@@ -50,6 +50,7 @@ export default class Inner_Component extends React.Component {
     this.show = "Anzeigen";
 
     this.prozessName = "";
+    this.prozessId = 1;
     
     
     this.state = {
@@ -104,15 +105,14 @@ export default class Inner_Component extends React.Component {
     let isTrue = "False!";
     let boolValue = 'false';
 
-      
-      this.colorBtnArr.forEach(item => {
-        if(item.id === id){
-          console.log("EACHHHH");
-          color = item.color;
-          isTrue = item.isTrue;
-          isTrue === "False!" ? boolValue = 'false' : boolValue = 'true';
-        }
-      });
+    this.colorBtnArr.forEach(item => {
+      if(item.id === id){
+        console.log("EACHHHH");
+        color = item.color;
+        isTrue = item.isTrue;
+        isTrue === "False!" ? boolValue = 'false' : boolValue = 'true';
+      }
+    });
     
     formContent = <Schalter key={uuid()}
     text={isTrue}
@@ -126,7 +126,7 @@ export default class Inner_Component extends React.Component {
 
   return(
     <Card.Content extra key={id}>
-      <h1>{this.prozessName}</h1>
+      <Card.Header>Edit</Card.Header>
       <Divider></Divider>
       {
         formContent
@@ -134,12 +134,13 @@ export default class Inner_Component extends React.Component {
     </Card.Content>
   );
 }
- ShowCard_Content (_inputName,_datatype,_id) {
+ ShowCard_Content (_inputName,_datatype,_id,_data) {
   return(
         <ShowCardContent key={uuid()}
         inputName={_inputName}
         datatype={_datatype}
         id={_id}
+        data={_data}
         onChangeCallFunction={this.onChangeCallFunction.bind(this)} />
   );
 }
@@ -202,9 +203,7 @@ onChangeCallFunction(a,b){
       this.id = b.id; 
       this.run();
       break;
-    case 'validate':
-      this.id = b.id;
-      this.validate();
+    case '':
       break;
     case 'concat':
       console.log(b);
@@ -219,12 +218,8 @@ onChangeCallFunction(a,b){
 
 }
 
-validate(){
-  
-}
-
 run(){
-  console.log("run!");
+  console.log("You say Run!");
   this.setState({
     open: !this.state.open
   })
@@ -254,6 +249,7 @@ concat(a,b){
 
   });
   console.log(...modellierStore.dieProzesse);
+
 }
 
 onChangeBooleanButton(){
@@ -263,13 +259,24 @@ onChangeBooleanButton(){
 }
 
 onClickEdit(){
+  let createProzessJSON = {name : this.prozessName, prozessId : this.prozessId, InputArr : this.prozessInputData, OutputArr : this.prozessOutputData}
+  console.log(createProzessJSON);
+  modellierStore.setDieProzess(this.createProzessJSON);
+  window.location.hash = '/modelfinished';
+}
 
-  window.location.hash = '/result';
+onClickEditUpdate(){
+
+  window.location.hash = '/resultfin';
 }
 
 
   render() {
 
+    const btnSpace = {
+      marginLeft: "55px",
+      marginRight: "5px",
+    }
 
     const {dieProzesse} = modellierStore;
     const prozData = [...dieProzesse];
@@ -277,8 +284,11 @@ onClickEdit(){
 
     {
       if(this.oneTime === true){
+        
+        console.log(prozData);
         prozData.forEach(item => {
           const name = item.name;
+          this.prozessId = item.prozessId;
           this.prozessName = item.name;
           this.prozessInputData = [...item.InputArr];
           this.prozessOutputData = [...item.OutputArr];
@@ -288,17 +298,16 @@ onClickEdit(){
             if(item.isEdit){
               this.showCards.push(this.Card_Content(name,item.input,item.id,item.datatype));
             }else{
-              this.showCards.push(this.ShowCard_Content(item.input,item.datatype,item.id));
+              this.showCards.push(this.ShowCard_Content(item.input,item.datatype,item.id,item.data));
             }
             this.showInput.push(this.Input_Content(item.input,item.datatype));
           });
-
           this.prozessOutputData.forEach(item => {
             console.log("prozess Output");
             this.showOutput.push(this.Output_Content(item.input,item.datatype));
-
           });
         });
+        
       }
       this.oneTime = false;
     }
@@ -317,7 +326,9 @@ onClickEdit(){
                 <Grid.Column width={6}>
                   <Card>
                       <Card.Content>
-                        <Card.Header>Komponente</Card.Header>
+                        <Card.Header>Erstellte Komponente:</Card.Header>
+                        <Divider></Divider>
+                        <Card.Header><i>{this.prozessName}</i></Card.Header>
                       </Card.Content>
                   </Card>
                   <Card>
@@ -326,12 +337,14 @@ onClickEdit(){
 
                   <Card>
                       <Card.Content>
-                        <Card.Header>Bestätigen</Card.Header>
+                        <Card.Header>Changes / Update</Card.Header>
                       </Card.Content>
                       <Card.Content>
-                        <Button primary onClick={this.onClickEdit.bind(this)}> Bestätigen</Button>
+                        <Button inverted={true} secondary onClick={this.onClickEdit.bind(this)}> Change!</Button>
+                        <Button inverted={true} primary style={btnSpace} onClick={this.onClickEditUpdate.bind(this)}> Update!</Button>
                       </Card.Content>
                   </Card>
+
                 </Grid.Column>
 
                 <Grid.Column>
@@ -372,13 +385,14 @@ onClickEdit(){
 }
 
 
-/*
-{
+/**
+ * {
       if(this.oneTime === true){
         let i;
         console.log(prozData);
         for(i = 0; i< prozData.length; i++){
           const name = prozData[i].name;
+          this.prozessId = prozData[i].prozessId;
           this.prozessName = prozData[i].name;
           this.prozessInputData = [...prozData[0].InputArr];
           this.prozessOutputData = [...prozData[0].OutputArr];
@@ -388,7 +402,7 @@ onClickEdit(){
             if(this.prozessInputData[j].isEdit){
               this.showCards.push(this.Card_Content(name,this.prozessInputData[j].input,this.prozessInputData[j].id,this.prozessInputData[j].datatype));
             }else{
-              this.showCards.push(this.ShowCard_Content(this.prozessInputData[j].input,this.prozessInputData[j].datatype,this.prozessInputData[j].id));
+              this.showCards.push(this.ShowCard_Content(this.prozessInputData[j].input,this.prozessInputData[j].datatype,this.prozessInputData[j].id,this.prozessOutputData[j].data));
             }
             this.showInput.push(this.Input_Content(this.prozessInputData[j].input,this.prozessInputData[j].datatype));
             
@@ -405,5 +419,5 @@ onClickEdit(){
       }
       this.oneTime = false;
     }
-}*/
+ */
 

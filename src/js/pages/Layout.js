@@ -11,6 +11,7 @@ import ModelFinish from "../pages/ModellierungFinished"
 import Inner_Comp from "../pages/Inner_Component"
 import Inner_CompFinishedProzesse from "../pages/Inner_ComponentFinishesProzesse"
 import Result from "../pages/Result"
+import Result_Finished from "../pages/Result_finished"
 import Prozesse from "../pages/Prozesse"
 import JSON_Files from "../pages/JSON_Files"
 
@@ -38,6 +39,7 @@ export default class Layout extends React.Component {
                                 <Route exact path="/innercomp" component={Inner_Comp}/>
                                 <Route exact path="/innercompfinished" component={Inner_CompFinishedProzesse}/>
                                 <Route exact path="/result" component={Result}/>
+                                <Route exact path="/resultfin" component={Result_Finished}/>
                                 <Route exact path="/prozesse" component={Prozesse}/>
                                 <Route exact path="/jsonfiles" component={JSON_Files}/>
                             </div>

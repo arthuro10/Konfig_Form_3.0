@@ -64,158 +64,130 @@ export default class Modellierung extends React.Component {
  }
 
  handleRadioInputChange = (a,b) => {
-  console.log(b);
-  console.log(this.Input);
-  
- let i;
- let arr = [];
- let key ;
- let dropDownId ;
- let formInputId ;
- let btnPlusId ;
- let btnMinusId ;
- let isFirst ;
- let datatype ;
- for(i = 0; i< this.Input.length;i++){
-   console.log(b.id);
-   console.log(this.Input[i].idInputArr);
-   console.log(this.Input[i].idInputArr[2].radioId);
-   if(b.id === this.Input[i].idInputArr[2].radioId){
-     this.Input[i].isEdit = !this.Input[i].isEdit;
-     console.log(this.Input[i].isEdit);
-     if(i === 0){
-         arr = [];
-         key = this.state.NewOutputArray[i].key;
-         dropDownId = this.state.NewOutputArray[i].props.dropDownId;
-         formInputId = this.state.NewOutputArray[i].props.formInputId;
-         btnPlusId = this.state.NewOutputArray[i].props.btnPlusId;
-         btnMinusId = this.state.NewOutputArray[i].props.btnMinusId;
-         isFirst = this.state.NewOutputArray[i].props.isFirst;
-         datatype = this.Output[i].datatype;
-     }else{
-       let j;
-       let o;
-       for(j = 0;j<this.state.NewOutputArray.length;j++){
-         if(b.id === this.state.NewOutputArray[j].key ){
-           key = this.state.NewOutputArray[j].key;
-           dropDownId = this.state.NewOutputArray[j].props.dropDownId;
-           formInputId = this.state.NewOutputArray[j].props.formInputId;
-           btnPlusId = this.state.NewOutputArray[j].props.btnPlusId;
-           btnMinusId = this.state.NewOutputArray[j].props.btnMinusId;
-           isFirst = this.state.NewOutputArray[j].props.isFirst;
-           for(o = 0; o<this.Output.length;o++){
-             if(dropDownId === this.Output[o].idOutputArr[0].dropDownId){
-               console.log("o for");
-               datatype = this.Output[i].datatype;
-             }
-           }
-         }
-       }
-     }
-     
-         
-     if(this.Input[i].isEdit === true){
-         let isDisabled = true;
-       if(i === 0){
-         
-         arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, datatype, isDisabled));
-         this.setState({
-           NewOutputArray : arr
-         });
-         let tmpInput = this.Input[i].input;
-         let tmpDatatype = this.Input[i].datatype;
-         let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
-         let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : ""};
-         this.Output = [];
-         this.Output.push(obj);
-         return;
-       }
-       // Wenn noch kein Output existiert der mit dem Input verbunden ist.
-       if(key === undefined){
-         const dropDownId = uuid();
-         const formInputId = uuid();
-         const btnPlusId = uuid();
-         const btnMinusId = uuid();
-         let isFirst = false;
-         let idObj = uuid();
-         arr = this.state.NewOutputArray;
-         arr.push(this.updateOutput(b.id, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, "text", true));
-         this.setState({
-           NewOutputArray : arr
-         });
-         let tmpInput = this.Input[i].input;
-         let tmpDatatype = this.Input[i].datatype;
-         let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
-         let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : idObj, data : ""};
-         this.Output.push(obj);
+  let arr = [];
+  let key, dropDownId, formInputId ;
+  let btnPlusId ,btnMinusId, tmpDatatype;
+  let tmpInput, isDisabled;
 
-       }else{
-         console.log("Output auf disabled");
-         arr = this.state.NewOutputArray;
-         arr = arr.filter(item => (
-           (b.id !== item.key )
-         ));
-         arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, datatype, true));
-         this.setState({
-           NewOutputArray : arr
-         });
-         let tmpInput = this.Input[i].input;
-         let tmpDatatype = this.Input[i].datatype;
-         let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
-         let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : ""};
-         this.Output.push(obj);
-       }
-     }else if(this.Input[i].isEdit === false){
-         let isDisabled = false;
-         if(i === 0){
-           arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, datatype, isDisabled));
-           this.setState({
-             NewOutputArray : arr
-           });
-           this.Output = [];
-           let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
-           let obj = {idOutputArr : idArr, input : "", datatype : "", id : uuid(), data : ""};
-           this.Output.push(obj);
-           
-           
-         }else{
-           console.log("false slider");
-           let k;
-           arr = this.state.NewOutputArray;
-           for(k = 0;k<arr.length;k++){
-             if(b.id === arr[k].key ){
-               console.log("gleiche id");
-               key = arr[k].key;
-               dropDownId = arr[k].props.dropDownId;
-               formInputId = arr[k].props.formInputId;
-               btnPlusId = arr[k].props.btnPlusId;
-               btnMinusId = arr[k].props.btnMinusId;
-               isFirst = this.state.NewOutputArray[k].props.isFirst;
-             }
-           }
-           console.log(arr);
-           arr = arr.filter(item => (
-             (b.id !== item.key )
-           ));
-           console.log(arr);
-           arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, "text", false));
-           this.setState({
-             NewOutputArray : arr
-           });
-           ///
-           this.Output.forEach(item => {
-             if(b.id === item.idOutputArr[4].radioSliderId){
-               item.input = "";
-               item.datatype = "";
-             }
-           });
-         }
-     
-   }
+  console.log(b.id);
+  this.Input.forEach(item => {
+    if(b.id === item.idInputArr[2].radioId){
+      item.isEdit = !item.isEdit;
+      key = b.id;
+      tmpDatatype = item.datatype;
+      tmpInput = item.input;
+      
+      if(item.isEdit === true){
+        isDisabled = true;
+        if(item.isFirst === true){
+          console.log("isTrue is First");
+          // Verknüpfen mit Output
+          
+          this.state.NewOutputArray.forEach(itemNewOutput => {
+            console.log(itemNewOutput.props);
+            dropDownId = itemNewOutput.props.dropDownId;
+            formInputId = itemNewOutput.props.formInputId;
+            btnPlusId = itemNewOutput.props.btnPlusId;
+            btnMinusId = itemNewOutput.props.btnMinusId;
+          });
+          arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, item.isFirst, tmpDatatype, isDisabled));
+          this.setState({
+            NewOutputArray : arr
+          });
+          let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
+          let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : "", isEdit : true};
+          this.Output = [];
+          this.Output.push(obj);
+        }else if(item.isFirst === false){
+          console.log("isTrue is not First");
+          const alreadyExists = this.state.NewOutputArray.some(ele => {
+            return ele.key === b.id;
+          })
+          if(alreadyExists){
+            arr = [];
+            console.log(arr);
+            this.state.NewOutputArray.forEach(element => {
+              if(element.key === b.id){
+                dropDownId = element.props.dropDownId;
+                formInputId = element.props.formInputId;
+                btnPlusId = element.props.btnPlusId;
+                btnMinusId = element.props.btnMinusId;
+              }else {
+                console.log(element);
+                arr.push(element);
+              }
+            });
+            arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, item.isFirst, tmpDatatype, isDisabled));
+            this.setState({
+              NewOutputArray : arr
+            });
+            let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
+            let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : "", isEdit : true};
+            this.Output = [];
+            this.Output.push(obj);
+          }else if(!alreadyExists){
+            dropDownId = uuid();
+            formInputId = uuid();
+            btnPlusId = uuid();
+            btnMinusId = uuid();
+            arr = this.state.NewOutputArray;
+            arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, item.isFirst, tmpDatatype, isDisabled));
+            this.setState({
+              NewOutputArray : arr
+            });
+            let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
+            let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : "", isEdit : true};
+            this.Output.push(obj);
+          }
+        }
+      }else if(item.isEdit === false){
+        isDisabled = false;
+        if(item.isFirst === true){
+          console.log("isFalse is First");
+          this.state.NewOutputArray.forEach(itemNewOutput => {
+            console.log(itemNewOutput.props);
+            dropDownId = itemNewOutput.props.dropDownId;
+            formInputId = itemNewOutput.props.formInputId;
+            btnPlusId = itemNewOutput.props.btnPlusId;
+            btnMinusId = itemNewOutput.props.btnMinusId;
+          });
+          arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, item.isFirst, tmpDatatype, isDisabled));
+          this.setState({
+            NewOutputArray : arr
+          });
+          let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
+          let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : "", isEdit : false};
+          this.Output = [];
+          this.Output.push(obj);
 
- }
+        }else if(item.isFirst === false){
+          console.log("isFalse is not First");
+          arr = [];
+          console.log(arr);
+          this.state.NewOutputArray.forEach(element => {
+            if(element.key === b.id){
+              dropDownId = element.props.dropDownId;
+              formInputId = element.props.formInputId;
+              btnPlusId = element.props.btnPlusId;
+              btnMinusId = element.props.btnMinusId;
+            }else {
+              console.log(element);
+              arr.push(element);
+            }
+          });
 
-}
+          arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, item.isFirst, tmpDatatype, isDisabled));
+          this.setState({
+            NewOutputArray : arr
+          });
+          let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
+          let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : "", isEdit : false};
+          this.Output.push(obj);
+
+        }
+      }
+    }
+  })
 
 }
 
@@ -245,7 +217,7 @@ export default class Modellierung extends React.Component {
     this.setState({ NewInputArray: newArr })
     console.log("2:" + this.state.NewInputArray);
     let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{radioId : radioId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId}]
-    let obj = {idInputArr : idArr, input : "", datatype : "", isEdit : false, editing : "", id : idObj };
+    let obj = {idInputArr : idArr, input : "", datatype : "", isEdit : false, editing : "", id : idObj, isFirst : isFirst };
     this.Input.push(obj);
 
   
@@ -253,7 +225,19 @@ export default class Modellierung extends React.Component {
  onClickMinusInput(a,b) {
     console.log("1.1:" + this.state.NewInputArray);
     console.log(this.state.NewInputArray)
-    
+    let isEdit = false;
+    this.Input.forEach(item => {
+      if(item.idInputArr[4].btnMinusId === b.id){
+          if(item.isEdit === true){
+            isEdit = true;
+          }
+      }
+    });
+    if(isEdit === true){
+      alert("Erst Edit Slider auf OFF stellen");
+      return
+    }
+
     let newArr = this.state.NewInputArray.filter(item => (
       (item.props.btnMinusId !== b.id)
     ));
@@ -270,17 +254,33 @@ export default class Modellierung extends React.Component {
  }
  onClickMinusOutput(a,b) {
   console.log("1.1-:" + this.state.NewOutputArray);
+    let isEdit = false;
+    this.state.NewOutputArray.forEach(item => {
+      if(b.id === item.props.btnMinusId){
+        console.log(item);
+        if(item.props.isDisabled === true){
+          isEdit = true;
+        }
+      }
+      
+    });
+    if(isEdit === true){
+      alert("Erst Edit Slider auf OFF stellen");
+      return
+    }
     let newArr = this.state.NewOutputArray.filter(item => (
       (item.props.btnMinusId !== b.id)
     ));
     console.log(this.Output);
-    console.log(b.id);
-    this.Output = this.Output.filter(item => (
-      (item.idOutputArr[3].btnMinusId !== b.id)
-    ));
+    this.Output = this.Output.filter(item => {
+      console.log(b.id);
+      console.log(item.idOutputArr[3].btnMinusId);
+      return item.idOutputArr[3].btnMinusId !== b.id
+    } );
     console.log(this.Output);
     this.setState({ NewOutputArray: newArr })
     console.log("2.1-:" + this.state.NewOutputArray);
+    console.log(this.state.NewOutputArray);
     this.simpleBoolean = true;
  }
 
@@ -308,7 +308,7 @@ export default class Modellierung extends React.Component {
     this.setState({ NewOutputArray: newArr })
     console.log("2-:" + this.state.NewOutputArray);
     let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId}]
-    let obj = {idOutputArr : idArr, input : "", datatype : "", id : idObj, data : ""};
+    let obj = {idOutputArr : idArr, input : "", datatype : "", isEdit : false, id : idObj, data : "", isFirst : isFirst};
     this.Output.push(obj);
 
   
@@ -322,6 +322,7 @@ export default class Modellierung extends React.Component {
       isFilled = false;
     }
   });
+  console.log(this.Output);
   this.Output.map(item => {
     if(item.datatype === "" || item.input === ""){
       isFilled = false;
@@ -469,14 +470,17 @@ export default class Modellierung extends React.Component {
 
 
     {if(NewInputArray[0] === undefined){
+      console.log("depp 1");
       this.onClickChangeInput();
     }}
 
     {if(NewOutputArray[0] === undefined  ){
+      console.log("depp 2");
       this.onClickChangeOutput();
     }}
 
     if(this.Output.length === 0){
+      console.log("depp 3");
       this.onClickChangeOutput();
     }
 
@@ -719,161 +723,159 @@ export default class Modellierung extends React.Component {
  }
 
  handleRadioInputChange = (a,b) => {
-   console.log(b);
-   console.log(this.Input);
-   
-  let i;
-  let arr = [];
-  let key ;
-  let dropDownId ;
-  let formInputId ;
-  let btnPlusId ;
-  let btnMinusId ;
-  let isFirst ;
-  let datatype ;
-  for(i = 0; i< this.Input.length;i++){
-    console.log(b.id);
-    console.log(this.Input[i].idInputArr);
-    console.log(this.Input[i].idInputArr[2].radioId);
-    if(b.id === this.Input[i].idInputArr[2].radioId){
-      this.Input[i].isEdit = !this.Input[i].isEdit;
-      console.log(this.Input[i].isEdit);
-      if(i === 0){
-          arr = [];
-          key = this.state.NewOutputArray[i].key;
-          dropDownId = this.state.NewOutputArray[i].props.dropDownId;
-          formInputId = this.state.NewOutputArray[i].props.formInputId;
-          btnPlusId = this.state.NewOutputArray[i].props.btnPlusId;
-          btnMinusId = this.state.NewOutputArray[i].props.btnMinusId;
-          isFirst = this.state.NewOutputArray[i].props.isFirst;
-          datatype = this.Output[i].datatype;
-      }else{
-        let j;
-        let o;
-        for(j = 0;j<this.state.NewOutputArray.length;j++){
-          if(b.id === this.state.NewOutputArray[j].key ){
-            key = this.state.NewOutputArray[j].key;
-            dropDownId = this.state.NewOutputArray[j].props.dropDownId;
-            formInputId = this.state.NewOutputArray[j].props.formInputId;
-            btnPlusId = this.state.NewOutputArray[j].props.btnPlusId;
-            btnMinusId = this.state.NewOutputArray[j].props.btnMinusId;
-            isFirst = this.state.NewOutputArray[j].props.isFirst;
-            for(o = 0; o<this.Output.length;o++){
-              if(dropDownId === this.Output[o].idOutputArr[0].dropDownId){
-                console.log("o for");
-                datatype = this.Output[i].datatype;
-              }
-            }
-          }
-        }
-      }
-      
-          
-      if(this.Input[i].isEdit === true){
-          let isDisabled = true;
-        if(i === 0){
-          
-          arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, datatype, isDisabled));
-          this.setState({
-            NewOutputArray : arr
-          });
-          let tmpInput = this.Input[i].input;
-          let tmpDatatype = this.Input[i].datatype;
-          let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
-          let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : ""};
-          this.Output = [];
-          this.Output.push(obj);
-          return;
-        }
-        // Wenn noch kein Output existiert der mit dem Input verbunden ist.
-        if(key === undefined){
-          const dropDownId = uuid();
-          const formInputId = uuid();
-          const btnPlusId = uuid();
-          const btnMinusId = uuid();
-          let isFirst = false;
-          let idObj = uuid();
-          arr = this.state.NewOutputArray;
-          arr.push(this.updateOutput(b.id, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, "text", true));
-          this.setState({
-            NewOutputArray : arr
-          });
-          let tmpInput = this.Input[i].input;
-          let tmpDatatype = this.Input[i].datatype;
-          let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
-          let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : idObj, data : ""};
-          this.Output.push(obj);
+  console.log(b);
+  console.log(this.Input);
+  
+ let i;
+ let arr = [];
+ let key ;
+ let dropDownId ;
+ let formInputId ;
+ let btnPlusId ;
+ let btnMinusId ;
+ let isFirst ;
+ let datatype ;
+ for(i = 0; i< this.Input.length;i++){
+   console.log(b.id);
+   console.log(this.Input[i].idInputArr);
+   console.log(this.Input[i].idInputArr[2].radioId);
+   if(b.id === this.Input[i].idInputArr[2].radioId){
+     this.Input[i].isEdit = !this.Input[i].isEdit;
+     
+     console.log(this.Input[i].isEdit);
+     if(i === 0){
+         arr = [];
+         key = this.state.NewOutputArray[i].key;
+         dropDownId = this.state.NewOutputArray[i].props.dropDownId;
+         formInputId = this.state.NewOutputArray[i].props.formInputId;
+         btnPlusId = this.state.NewOutputArray[i].props.btnPlusId;
+         btnMinusId = this.state.NewOutputArray[i].props.btnMinusId;
+         isFirst = this.state.NewOutputArray[i].props.isFirst;
+         datatype = this.Output[i].datatype;
+         
+     }else{
+       let j;
+       let o;
+       for(j = 0;j<this.state.NewOutputArray.length;j++){
+         if(b.id === this.state.NewOutputArray[j].key ){
+           key = this.state.NewOutputArray[j].key;
+           dropDownId = this.state.NewOutputArray[j].props.dropDownId;
+           formInputId = this.state.NewOutputArray[j].props.formInputId;
+           btnPlusId = this.state.NewOutputArray[j].props.btnPlusId;
+           btnMinusId = this.state.NewOutputArray[j].props.btnMinusId;
+           isFirst = this.state.NewOutputArray[j].props.isFirst;
+           for(o = 0; o<this.Output.length;o++){
+             if(dropDownId === this.Output[o].idOutputArr[0].dropDownId){
+               console.log("o for");
+               datatype = this.Output[i].datatype;
+             }
+           }
+         }
+       }
+     }
+     
+         
+     if(this.Input[i].isEdit === true){
+         let isDisabled = true;
+       if(i === 0){
+         arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, datatype, isDisabled));
+         this.setState({
+           NewOutputArray : arr
+         });
+         let tmpInput = this.Input[i].input;
+         let tmpDatatype = this.Input[i].datatype;
+         let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
+         let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : ""};
+         this.Output = [];
+         this.Output.push(obj);
+         return;
+       }
+       // Wenn noch kein Output existiert der mit dem Input verbunden ist.
+       if(key === undefined){
+         const dropDownId = uuid();
+         const formInputId = uuid();
+         const btnPlusId = uuid();
+         const btnMinusId = uuid();
+         let isFirst = false;
+         let idObj = uuid();
+         arr = this.state.NewOutputArray;
+         arr.push(this.updateOutput(b.id, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, "text", true));
+         this.setState({
+           NewOutputArray : arr
+         });
+         let tmpInput = this.Input[i].input;
+         let tmpDatatype = this.Input[i].datatype;
+         let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
+         let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : idObj, data : ""};
+         this.Output.push(obj);
 
-        }else{
-          console.log("Output auf disabled");
-          arr = this.state.NewOutputArray;
-          arr = arr.filter(item => (
-            (b.id !== item.key )
-          ));
-          arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, datatype, true));
-          this.setState({
-            NewOutputArray : arr
-          });
-          let tmpInput = this.Input[i].input;
-          let tmpDatatype = this.Input[i].datatype;
-          let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
-          let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : ""};
-          this.Output.push(obj);
-        }
-      }else if(this.Input[i].isEdit === false){
-          let isDisabled = false;
-          if(i === 0){
-            arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, datatype, isDisabled));
-            this.setState({
-              NewOutputArray : arr
-            });
-            this.Output = [];
-            let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
-            let obj = {idOutputArr : idArr, input : "", datatype : "", id : idObj, data : ""};
-            this.Output.push(obj);
-            
-            
-          }else{
-            console.log("false slider");
-            let k;
-            arr = this.state.NewOutputArray;
-            for(k = 0;k<arr.length;k++){
-              if(b.id === arr[k].key ){
-                console.log("gleiche id");
-                key = arr[k].key;
-                dropDownId = arr[k].props.dropDownId;
-                formInputId = arr[k].props.formInputId;
-                btnPlusId = arr[k].props.btnPlusId;
-                btnMinusId = arr[k].props.btnMinusId;
-                isFirst = this.state.NewOutputArray[k].props.isFirst;
-              }
-            }
-            console.log(arr);
-            arr = arr.filter(item => (
-              (b.id !== item.key )
-            ));
-            console.log(arr);
-            arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, "text", false));
-            this.setState({
-              NewOutputArray : arr
-            });
-            ///
-            this.Output.forEach(item => {
-              if(b.id === item.idOutputArr[4].radioSliderId){
-                item.input = "";
-                item.datatype = "";
-              }
-            });
-          }
-      
-      
-      
-
-    }
-
-  }
+       }else{
+         console.log("Output auf disabled");
+         arr = this.state.NewOutputArray;
+         arr = arr.filter(item => (
+           (b.id !== item.key )
+         ));
+         arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, datatype, true));
+         this.setState({
+           NewOutputArray : arr
+         });
+         let tmpInput = this.Input[i].input;
+         let tmpDatatype = this.Input[i].datatype;
+         let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
+         let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : ""};
+         this.Output.push(obj);
+       }
+     }else if(this.Input[i].isEdit === false){
+         let isDisabled = false;
+         if(i === 0){
+           arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, datatype, isDisabled));
+           this.setState({
+             NewOutputArray : arr
+           });
+           this.Output = [];
+           let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
+           let obj = {idOutputArr : idArr, input : "", datatype : "", id : uuid(), data : ""};
+           this.Output.push(obj);
+           
+           
+         }else{
+           console.log("false slider");
+           let k;
+           arr = this.state.NewOutputArray;
+           for(k = 0;k<arr.length;k++){
+             if(b.id === arr[k].key ){
+               console.log("gleiche id");
+               key = arr[k].key;
+               dropDownId = arr[k].props.dropDownId;
+               formInputId = arr[k].props.formInputId;
+               btnPlusId = arr[k].props.btnPlusId;
+               btnMinusId = arr[k].props.btnMinusId;
+               isFirst = this.state.NewOutputArray[k].props.isFirst;
+             }
+           }
+           console.log(arr);
+           arr = arr.filter(item => (
+             (b.id !== item.key )
+           ));
+           console.log(arr);
+           arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, "text", false));
+           this.setState({
+             NewOutputArray : arr
+           });
+           ///
+           this.Output.forEach(item => {
+             if(b.id === item.idOutputArr[4].radioSliderId){
+               item.input = "";
+               item.datatype = "";
+             }
+           });
+         }
+     
+   }
 
  }
+
+}
 
 }
     */

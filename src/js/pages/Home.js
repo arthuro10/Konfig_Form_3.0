@@ -24,13 +24,16 @@ export default class Start extends React.Component {
       open : false
       
     };
-    modellierStore.fetchProzesse();
     modellierStore.resetDieProzess();
 
  }
 
+ componentDidMount(){
+  modellierStore.fetchProzesse();
+  modellierStore.fetchCreateProzesse();
+}
+
  onClickCardItem(a,b){
-  let i;
   let id;
   let name;
   let inputArr;

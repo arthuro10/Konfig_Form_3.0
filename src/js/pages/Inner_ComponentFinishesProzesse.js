@@ -126,7 +126,7 @@ export default class Inner_Component extends React.Component {
 
   return(
     <Card.Content extra key={id}>
-      <h1>{this.prozessName}</h1>
+      <Card.Header>Edit</Card.Header>
       <Divider></Divider>
       {
         formContent
@@ -265,9 +265,18 @@ onClickEdit(){
   window.location.hash = '/modelfinished';
 }
 
+onClickEditUpdate(){
+
+  window.location.hash = '/resultfin';
+}
+
 
   render() {
 
+    const btnSpace = {
+      marginLeft: "55px",
+      marginRight: "5px",
+    }
 
     const {dieProzesse} = modellierStore;
     const prozData = [...dieProzesse];
@@ -317,7 +326,9 @@ onClickEdit(){
                 <Grid.Column width={6}>
                   <Card>
                       <Card.Content>
-                        <Card.Header>Erstellte Komponente</Card.Header>
+                        <Card.Header>Erstellte Komponente:</Card.Header>
+                        <Divider></Divider>
+                        <Card.Header><i>{this.prozessName}</i></Card.Header>
                       </Card.Content>
                   </Card>
                   <Card>
@@ -326,10 +337,11 @@ onClickEdit(){
 
                   <Card>
                       <Card.Content>
-                        <Card.Header>Veränderungen</Card.Header>
+                        <Card.Header>Changes / Update</Card.Header>
                       </Card.Content>
                       <Card.Content>
-                        <Button primary onClick={this.onClickEdit.bind(this)}> Yes</Button>
+                        <Button inverted={true} secondary onClick={this.onClickEdit.bind(this)}> Change!</Button>
+                        <Button inverted={true} primary style={btnSpace} onClick={this.onClickEditUpdate.bind(this)}> Update!</Button>
                       </Card.Content>
                   </Card>
 

@@ -44,7 +44,7 @@ export default class NavigationBar extends Component {
           name='Start Page'
           active={activeItem === '/'}
           onClick={this.handleItemClick}
-          icon='fire'>                        
+          icon='star'>                        
         </Menu.Item>
         
         <Menu.Item></Menu.Item>
@@ -54,7 +54,7 @@ export default class NavigationBar extends Component {
           name='home'
           active={activeItem === 'home'}
           onClick={this.handleItemClick}
-          icon='fire'>                        
+          icon='home'>                        
         </Menu.Item>
         
         <Menu.Item></Menu.Item>
@@ -64,7 +64,7 @@ export default class NavigationBar extends Component {
           name='prozesse'
           active={activeItem === 'prozesse'}
           onClick={this.handleItemClick}
-          icon='gripfire'>                        
+          icon='cogs'>                        
         </Menu.Item>
         <Menu.Item></Menu.Item>
 
