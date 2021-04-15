@@ -98,7 +98,7 @@ export default class ModellierungFinished extends React.Component {
           this.setState({
             NewOutputArray : arr
           });
-          let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
+          let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioId : b.id}]
           let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : "", isEdit : true};
           this.Output = [];
           this.Output.push(obj);
@@ -108,6 +108,7 @@ export default class ModellierungFinished extends React.Component {
             return ele.key === b.id;
           })
           if(alreadyExists){
+            console.log("already Exists");
             arr = [];
             console.log(arr);
             this.state.NewOutputArray.forEach(element => {
@@ -125,11 +126,11 @@ export default class ModellierungFinished extends React.Component {
             this.setState({
               NewOutputArray : arr
             });
-            let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
+            let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioId : b.id}]
             let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : "", isEdit : true};
-            this.Output = [];
             this.Output.push(obj);
           }else if(!alreadyExists){
+            console.log("! already Exists");
             dropDownId = uuid();
             formInputId = uuid();
             btnPlusId = uuid();
@@ -139,7 +140,7 @@ export default class ModellierungFinished extends React.Component {
             this.setState({
               NewOutputArray : arr
             });
-            let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
+            let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioId : b.id}]
             let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : "", isEdit : true};
             this.Output.push(obj);
           }
@@ -180,13 +181,17 @@ export default class ModellierungFinished extends React.Component {
             }
           });
 
-          arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, item.isFirst, tmpDatatype, isDisabled));
           this.setState({
             NewOutputArray : arr
           });
-          let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
-          let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : "", isEdit : false};
-          this.Output.push(obj);
+          this.Output = this.Output.filter(obj => (
+            (obj.idOutputArr[4].radioId !== b.id))
+          );
+            console.log(this.Output.filter(obj => {
+              console.log(b.id);
+              console.log(obj.idOutputArr[4].radioId);
+              (obj.idOutputArr[4].radioId !== b.id)
+            }));
 
         }
       }
@@ -223,9 +228,9 @@ export default class ModellierungFinished extends React.Component {
     this.setState({ NewInputArray: newArr })
     console.log("2:" + this.state.NewInputArray);
     let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{radioId : radioId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId}]
-    let obj = {idInputArr : idArr, input : "", datatype : "", isEdit : false, editing : "", id : idObj };
+    let obj = {idInputArr : idArr, input : "", datatype : "", isEdit : false, editing : "", id : idObj, isFirst : isFirst };
     this.Input.push(obj);
-
+    console.log(this.Input);
   
  }
  onClickMinusInput(a,b) {
@@ -503,8 +508,9 @@ onChangeOutputSelection (a,b) {
           }else{
             isFirst = false;
           }
+          let isDisabled = item.isEdit;
           let _item = [...item.idOutputArr];
-          newOutputArr.push(this.updateOutput(uuid(), _item[0].dropDownId, _item[1].formInputId,_item[2].btnPlusId, _item[3].btnMinusId, isFirst, item.datatype, false, item.input));
+          newOutputArr.push(this.updateOutput(uuid(), _item[0].dropDownId, _item[1].formInputId,_item[2].btnPlusId, _item[3].btnMinusId, isFirst, item.datatype, isDisabled, item.input));
           this.Output.push(item);
           console.log(item);
           count++;

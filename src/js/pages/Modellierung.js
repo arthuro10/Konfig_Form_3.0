@@ -94,7 +94,7 @@ export default class Modellierung extends React.Component {
           this.setState({
             NewOutputArray : arr
           });
-          let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
+          let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioId : b.id}]
           let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : "", isEdit : true};
           this.Output = [];
           this.Output.push(obj);
@@ -104,6 +104,7 @@ export default class Modellierung extends React.Component {
             return ele.key === b.id;
           })
           if(alreadyExists){
+            console.log("already Exists");
             arr = [];
             console.log(arr);
             this.state.NewOutputArray.forEach(element => {
@@ -121,11 +122,11 @@ export default class Modellierung extends React.Component {
             this.setState({
               NewOutputArray : arr
             });
-            let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
+            let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioId : b.id}]
             let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : "", isEdit : true};
-            this.Output = [];
             this.Output.push(obj);
           }else if(!alreadyExists){
+            console.log("! already Exists");
             dropDownId = uuid();
             formInputId = uuid();
             btnPlusId = uuid();
@@ -135,7 +136,7 @@ export default class Modellierung extends React.Component {
             this.setState({
               NewOutputArray : arr
             });
-            let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
+            let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioId : b.id}]
             let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : "", isEdit : true};
             this.Output.push(obj);
           }
@@ -176,13 +177,17 @@ export default class Modellierung extends React.Component {
             }
           });
 
-          arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, item.isFirst, tmpDatatype, isDisabled));
           this.setState({
             NewOutputArray : arr
           });
-          let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
-          let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : "", isEdit : false};
-          this.Output.push(obj);
+          this.Output = this.Output.filter(obj => (
+            (obj.idOutputArr[4].radioId !== b.id))
+          );
+            console.log(this.Output.filter(obj => {
+              console.log(b.id);
+              console.log(obj.idOutputArr[4].radioId);
+              (obj.idOutputArr[4].radioId !== b.id)
+            }));
 
         }
       }
@@ -307,7 +312,7 @@ export default class Modellierung extends React.Component {
     let newArr = this.state.NewOutputArray.concat(createNewOutput);
     this.setState({ NewOutputArray: newArr })
     console.log("2-:" + this.state.NewOutputArray);
-    let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId}]
+    let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioId : uuid()}]
     let obj = {idOutputArr : idArr, input : "", datatype : "", isEdit : false, id : idObj, data : "", isFirst : isFirst};
     this.Output.push(obj);
 
@@ -470,17 +475,17 @@ export default class Modellierung extends React.Component {
 
 
     {if(NewInputArray[0] === undefined){
-      console.log("depp 1");
+      console.log("Test 1");
       this.onClickChangeInput();
     }}
 
     {if(NewOutputArray[0] === undefined  ){
-      console.log("depp 2");
+      console.log("Test 2");
       this.onClickChangeOutput();
     }}
 
     if(this.Output.length === 0){
-      console.log("depp 3");
+      console.log("Test 3");
       this.onClickChangeOutput();
     }
 

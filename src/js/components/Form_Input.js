@@ -38,7 +38,7 @@ function Form_Input(props) {
                                   <Input id={props.formInputId} type={datatype} placeholder={value}  style={zentriert}   onChange={props.inputFunc}  />
                                 </Form.Field>  
                                 <Form.Field>
-                                  <Radio id={props.radioId} slider onClick={props.radioFunc} /> <p>Aus: Anzeigen lassen | Ein: Editieren</p>
+                                  <Radio id={props.radioId}  slider onClick={props.radioFunc} /> <p>Aus: Anzeigen lassen | Ein: Editieren</p>
                                 </Form.Field>   
                             </Form>
                             <br></br>

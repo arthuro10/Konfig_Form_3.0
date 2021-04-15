@@ -1,6 +1,6 @@
 import React from "react"
 import uuid from 'react-uuid';
-import { Grid, Form,Card, Icon, Modal, Button, Header, Input, Label, Radio, Segment, Divider, Dropdown} from 'semantic-ui-react'
+import { Grid, Form,Card, Icon, Modal, Button, Header, Input, Label, Divider, Segment, GridColumn, Dropdown} from 'semantic-ui-react'
 import { observer } from "mobx-react";
 
 // der Store auf den gehört werden soll wird hier eingebunden
@@ -50,7 +50,6 @@ export default class Inner_Component extends React.Component {
     this.show = "Anzeigen";
 
     this.prozessName = "";
-    this.prozessId = 1;
     
     
     this.state = {
@@ -105,14 +104,15 @@ export default class Inner_Component extends React.Component {
     let isTrue = "False!";
     let boolValue = 'false';
 
-    this.colorBtnArr.forEach(item => {
-      if(item.id === id){
-        console.log("EACHHHH");
-        color = item.color;
-        isTrue = item.isTrue;
-        isTrue === "False!" ? boolValue = 'false' : boolValue = 'true';
-      }
-    });
+      
+      this.colorBtnArr.forEach(item => {
+        if(item.id === id){
+          console.log("EACHHHH");
+          color = item.color;
+          isTrue = item.isTrue;
+          isTrue === "False!" ? boolValue = 'false' : boolValue = 'true';
+        }
+      });
     
     formContent = <Schalter key={uuid()}
     text={isTrue}
@@ -134,13 +134,12 @@ export default class Inner_Component extends React.Component {
     </Card.Content>
   );
 }
- ShowCard_Content (_inputName,_datatype,_id,_data) {
+ ShowCard_Content (_inputName,_datatype,_id) {
   return(
         <ShowCardContent key={uuid()}
         inputName={_inputName}
         datatype={_datatype}
         id={_id}
-        data={_data}
         onChangeCallFunction={this.onChangeCallFunction.bind(this)} />
   );
 }
@@ -203,7 +202,9 @@ onChangeCallFunction(a,b){
       this.id = b.id; 
       this.run();
       break;
-    case '':
+    case 'validate':
+      this.id = b.id;
+      this.validate();
       break;
     case 'concat':
       console.log(b);
@@ -218,8 +219,12 @@ onChangeCallFunction(a,b){
 
 }
 
+validate(){
+  
+}
+
 run(){
-  console.log("You say Run!");
+  console.log("run!");
   this.setState({
     open: !this.state.open
   })
@@ -249,7 +254,6 @@ concat(a,b){
 
   });
   console.log(...modellierStore.dieProzesse);
-
 }
 
 onChangeBooleanButton(){
@@ -259,24 +263,13 @@ onChangeBooleanButton(){
 }
 
 onClickEdit(){
-  let createProzessJSON = {name : this.prozessName, prozessId : this.prozessId, InputArr : this.prozessInputData, OutputArr : this.prozessOutputData}
-  console.log(createProzessJSON);
-  modellierStore.setDieProzess(this.createProzessJSON);
-  window.location.hash = '/modelfinished';
-}
 
-onClickEditUpdate(){
-
-  window.location.hash = '/resultfin';
+  window.location.hash = '/result';
 }
 
 
   render() {
 
-    const btnSpace = {
-      marginLeft: "55px",
-      marginRight: "5px",
-    }
 
     const {dieProzesse} = modellierStore;
     const prozData = [...dieProzesse];
@@ -284,11 +277,8 @@ onClickEditUpdate(){
 
     {
       if(this.oneTime === true){
-        
-        console.log(prozData);
         prozData.forEach(item => {
           const name = item.name;
-          this.prozessId = item.prozessId;
           this.prozessName = item.name;
           this.prozessInputData = [...item.InputArr];
           this.prozessOutputData = [...item.OutputArr];
@@ -298,16 +288,17 @@ onClickEditUpdate(){
             if(item.isEdit){
               this.showCards.push(this.Card_Content(name,item.input,item.id,item.datatype));
             }else{
-              this.showCards.push(this.ShowCard_Content(item.input,item.datatype,item.id,item.data));
+              this.showCards.push(this.ShowCard_Content(item.input,item.datatype,item.id));
             }
             this.showInput.push(this.Input_Content(item.input,item.datatype));
           });
+
           this.prozessOutputData.forEach(item => {
             console.log("prozess Output");
             this.showOutput.push(this.Output_Content(item.input,item.datatype));
+
           });
         });
-        
       }
       this.oneTime = false;
     }
@@ -326,7 +317,7 @@ onClickEditUpdate(){
                 <Grid.Column width={6}>
                   <Card>
                       <Card.Content>
-                        <Card.Header>Erstellte Komponente:</Card.Header>
+                        <Card.Header>Komponente</Card.Header>
                         <Divider></Divider>
                         <Card.Header><i>{this.prozessName}</i></Card.Header>
                       </Card.Content>
@@ -337,14 +328,12 @@ onClickEditUpdate(){
 
                   <Card>
                       <Card.Content>
-                        <Card.Header>Changes / Update</Card.Header>
+                        <Card.Header>Bestätigen</Card.Header>
                       </Card.Content>
                       <Card.Content>
-                        <Button inverted={true} secondary onClick={this.onClickEdit.bind(this)}> Change!</Button>
-                        <Button inverted={true} primary style={btnSpace} onClick={this.onClickEditUpdate.bind(this)}> Update!</Button>
+                        <Button primary onClick={this.onClickEdit.bind(this)}> Bestätigen</Button>
                       </Card.Content>
                   </Card>
-
                 </Grid.Column>
 
                 <Grid.Column>
@@ -385,14 +374,13 @@ onClickEditUpdate(){
 }
 
 
-/**
- * {
+/*
+{
       if(this.oneTime === true){
         let i;
         console.log(prozData);
         for(i = 0; i< prozData.length; i++){
           const name = prozData[i].name;
-          this.prozessId = prozData[i].prozessId;
           this.prozessName = prozData[i].name;
           this.prozessInputData = [...prozData[0].InputArr];
           this.prozessOutputData = [...prozData[0].OutputArr];
@@ -402,7 +390,7 @@ onClickEditUpdate(){
             if(this.prozessInputData[j].isEdit){
               this.showCards.push(this.Card_Content(name,this.prozessInputData[j].input,this.prozessInputData[j].id,this.prozessInputData[j].datatype));
             }else{
-              this.showCards.push(this.ShowCard_Content(this.prozessInputData[j].input,this.prozessInputData[j].datatype,this.prozessInputData[j].id,this.prozessOutputData[j].data));
+              this.showCards.push(this.ShowCard_Content(this.prozessInputData[j].input,this.prozessInputData[j].datatype,this.prozessInputData[j].id));
             }
             this.showInput.push(this.Input_Content(this.prozessInputData[j].input,this.prozessInputData[j].datatype));
             
@@ -419,5 +407,5 @@ onClickEditUpdate(){
       }
       this.oneTime = false;
     }
- */
+}*/
 
