@@ -180,18 +180,16 @@ export default class ModellierungFinished extends React.Component {
               arr.push(element);
             }
           });
-
+          console.log(...this.Output[0].idOutputArr);
+          console.log(...this.Output[1].idOutputArr);
+          console.log(...this.Output[2].idOutputArr);
+          console.log(this.Output[3].idOutputArr);
           this.setState({
             NewOutputArray : arr
           });
           this.Output = this.Output.filter(obj => (
             (obj.idOutputArr[4].radioId !== b.id))
           );
-            console.log(this.Output.filter(obj => {
-              console.log(b.id);
-              console.log(obj.idOutputArr[4].radioId);
-              (obj.idOutputArr[4].radioId !== b.id)
-            }));
 
         }
       }

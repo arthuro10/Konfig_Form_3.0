@@ -22,6 +22,7 @@ export default class Result extends React.Component {
 
 
     onClickButton (prozess) {
+        alert("Prozess erstellt!");
         console.log(prozess);
         modellierStore.addingProzesse(prozess);
         modellierStore.setallProzesses(prozess);

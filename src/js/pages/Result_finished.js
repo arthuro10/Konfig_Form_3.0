@@ -22,6 +22,7 @@ export default class Result_Finished extends React.Component {
 
 
     onClickButton (prozess) {
+        alert("Prozess aktualisiert!");
         console.log(prozess);
         modellierStore.updateProzess(prozess);
         modellierStore.resetDieProzess();
