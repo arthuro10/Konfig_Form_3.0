@@ -9,12 +9,12 @@ function InputComp (props) {
         <Card>
                 <Card.Content>
                     <Segment textAlign={"center"}>
-                        <Label>DATENTYP</Label>
+                        <Label color={"green"}>DATENTYP</Label>
                         <Header>{props.datatype}</Header>
                     </Segment>
                     <Divider></Divider>
                     <Segment textAlign={"center"}>
-                        <Label>INPUT</Label>
+                        <Label color={"green"}>INPUT</Label>
                         <Header>{props.input}</Header>
                     </Segment>   
                 </Card.Content>

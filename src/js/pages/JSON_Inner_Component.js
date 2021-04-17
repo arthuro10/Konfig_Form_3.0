@@ -1,6 +1,6 @@
 import React from "react"
 import uuid from 'react-uuid'
-import { Grid, Form,Card, Icon, Modal, Button, Header, Input, Label, Radio, Segment, Divider, Dropdown} from 'semantic-ui-react'
+import { Grid, Icon,Card, Icon, Modal, Button, Header, Input, Label, Radio, Segment, Divider, Dropdown} from 'semantic-ui-react'
 import { observer } from "mobx-react";
 
 // der Store auf den gehört werden soll wird hier eingebunden
@@ -294,7 +294,8 @@ onClickEdit(){
             <Grid columns='equal'>
               <Grid.Row stretched>
                 <Grid.Column>
-                  <Header style={zentriert}>INPUT</Header>      
+                  <Header style={zentriert}>INPUT</Header>     
+                  <Icon arrow alternate circle right></Icon> 
                   {this.showInput}
                 </Grid.Column>
 

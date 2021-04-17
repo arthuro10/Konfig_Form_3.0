@@ -319,7 +319,7 @@ onClickEditUpdate(){
             <Grid columns='equal'>
               <Grid.Row stretched>
                 <Grid.Column>
-                  <Header style={zentriert}>INPUT</Header>      
+                  <Header style={zentriert}>INPUT</Header>
                   {this.showInput}
                 </Grid.Column>
 

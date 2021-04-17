@@ -15,7 +15,7 @@ function TimeEdit (props) {
                 <Card.Content>
                     <Form >
                     <Form.Field>
-                        <Label>{props.inputName}</Label>
+                        <Label color={"teal"}>{props.inputName}</Label>
                         <Input id={props.id} type="time" placeholder='Edit...' style={zentriert} onChange={props.onChangeFunction}  />
                         <Segment>
                         <Input id={props.id} placeholder='call a function' style={zentriert} onChange={props.onChangeCallFunction}  />

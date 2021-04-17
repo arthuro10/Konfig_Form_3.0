@@ -8,12 +8,12 @@ function OutputComp (props) {
             <Card>
                 <Card.Content>
                     <Segment textAlign={"center"}>
-                        <Label>DATENTYP</Label>
+                        <Label color={"red"}>DATENTYP</Label>
                         <Header>{props.datatype}</Header>
                     </Segment>
                     <Divider></Divider>
                     <Segment textAlign={"center"}>
-                        <Label>OUTPUT</Label>
+                        <Label color={"red"}>OUTPUT</Label>
                         <Header>{props.output}</Header>
                     </Segment>   
                 </Card.Content>

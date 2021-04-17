@@ -17,6 +17,8 @@ class ModellierStore {
 
     @observable allCreateProzesses = [];
 
+    @observable loading = "";
+
     @action setDieProzess(item) {
         this.dieProzesse.push(item);
     }
@@ -41,7 +43,7 @@ class ModellierStore {
 
                 if(id === item.InputArr[j].id ){
                     if(item.OutputArr[j] === undefined){
-                        alert("Error: JSON File error");
+                        alert("Error: JSON File error. Fehler bei der Definition des JSON. Bei Edit muss es einen passenden Output geben.");
                         return;
                     }
                     item.InputArr[j].editing = value;

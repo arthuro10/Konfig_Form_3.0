@@ -15,7 +15,7 @@ function Edit (props) {
                 <Card.Content>
                     <Form >
                     <Form.Field>
-                        <Label>{props.inputName}</Label>
+                        <Label color={"teal"}>{props.inputName}</Label>
                         <Input type={"number"} id={props.id} placeholder='Edit...' style={zentriert} onChange={props.onChangeFunction}  />
                         <Segment>
                         <Input  placeholder='call a function' style={zentriert} onChange={props.onChangeCallFunction}  />

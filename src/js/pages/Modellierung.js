@@ -84,20 +84,23 @@ export default class Modellierung extends React.Component {
           // Verknüpfen mit Output
           
           this.state.NewOutputArray.forEach(itemNewOutput => {
-            console.log(itemNewOutput.props);
-            dropDownId = itemNewOutput.props.dropDownId;
-            formInputId = itemNewOutput.props.formInputId;
-            btnPlusId = itemNewOutput.props.btnPlusId;
-            btnMinusId = itemNewOutput.props.btnMinusId;
+            if(itemNewOutput.key === b.id){
+              dropDownId = itemNewOutput.props.dropDownId;
+              formInputId = itemNewOutput.props.formInputId;
+              btnPlusId = itemNewOutput.props.btnPlusId;
+              btnMinusId = itemNewOutput.props.btnMinusId;
+            }else if(itemNewOutput !== b.id && this.state.NewInputArray.length > 1){
+              console.log(itemNewOutput);
+              arr.push(itemNewOutput);
+            }
           });
-          arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, item.isFirst, tmpDatatype, isDisabled));
+          arr.unshift(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, item.isFirst, tmpDatatype, isDisabled));
           this.setState({
             NewOutputArray : arr
           });
           let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioId : b.id}]
           let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : "", isEdit : true};
-          this.Output = [];
-          this.Output.push(obj);
+          this.Output[0] = obj;
         }else if(item.isFirst === false){
           console.log("isTrue is not First");
           const alreadyExists = this.state.NewOutputArray.some(ele => {
@@ -146,20 +149,23 @@ export default class Modellierung extends React.Component {
         if(item.isFirst === true){
           console.log("isFalse is First");
           this.state.NewOutputArray.forEach(itemNewOutput => {
-            console.log(itemNewOutput.props);
+            if(itemNewOutput.key === b.id){
             dropDownId = itemNewOutput.props.dropDownId;
             formInputId = itemNewOutput.props.formInputId;
             btnPlusId = itemNewOutput.props.btnPlusId;
             btnMinusId = itemNewOutput.props.btnMinusId;
+            }else {
+              console.log(itemNewOutput);
+              arr.push(itemNewOutput);
+            }
           });
-          arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, item.isFirst, tmpDatatype, isDisabled));
+          arr.unshift(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, item.isFirst, tmpDatatype, isDisabled));
           this.setState({
             NewOutputArray : arr
           });
           let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
           let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : "", isEdit : false};
-          this.Output = [];
-          this.Output.push(obj);
+          this.Output[0]= obj;
 
         }else if(item.isFirst === false){
           console.log("isFalse is not First");
@@ -544,7 +550,7 @@ export default class Modellierung extends React.Component {
               <Header style={zentriert}>Prozessname</Header>
                 <Form >
                   <Form.Field>
-                    <Label>Geben Sie den Namen des Prozesses ein</Label>
+                    <Label color={"teal"}>Geben Sie den Namen des Prozesses ein</Label>
                     <Input placeholder='Prozessname...' style={zentriert} onChange={this.onSubmitProzessName.bind(this)}  />
                   </Form.Field>     
                 </Form>
@@ -565,7 +571,7 @@ export default class Modellierung extends React.Component {
             <Grid.Column  >
               <Segment  style={kompakt}>
               <Header style={zentriert}>Bestätigen</Header>
-              <Button style={zentriert} onClick={this.onSubmitProzess.bind(this)}>Bestätigen</Button>
+              <Button style={zentriert} color={"teal"} onClick={this.onSubmitProzess.bind(this)}>Bestätigen</Button>
               </Segment>
             </Grid.Column>
           </Grid.Row>

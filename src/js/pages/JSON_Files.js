@@ -14,7 +14,6 @@ export default class JSON_Files extends React.Component{
     }
 
     onClickBtn(a,b) {
-        let i;
         let id;
         let name;
         let inputArr;

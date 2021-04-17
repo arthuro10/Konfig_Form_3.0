@@ -24,11 +24,26 @@ const spacing = {
     { key: 'time', value: 'time', text: 'Time' },
   ]
 
+  function Welcome(props) {
+    return <h1>Hello, {props.name}</h1>;
+  }
+
 function Form_Input(props) {
 
     const datatype = props.datatype || "";
     const value = props.value || "Input...";
+    const defChecked = props.defaultChecked || false;
     console.log("Input Component ");
+    let whichOne;
+    if(defChecked){
+      whichOne = <div>
+        <Radio id={props.radioId} defaultChecked={true}   slider onClick={props.radioFunc} /> <p>Aus: Anzeigen lassen | Ein: Editieren</p>
+        </div>
+    }else{
+      whichOne = <div>
+        <Radio id={props.radioId}  slider onClick={props.radioFunc} /> <p>Aus: Anzeigen lassen | Ein: Editieren</p>
+        </div>
+    }
     return(
         <Segment style={spacing} >
                             <Header>Inputs definieren</Header>
@@ -38,7 +53,7 @@ function Form_Input(props) {
                                   <Input id={props.formInputId} type={datatype} placeholder={value}  style={zentriert}   onChange={props.inputFunc}  />
                                 </Form.Field>  
                                 <Form.Field>
-                                  <Radio id={props.radioId}  slider onClick={props.radioFunc} /> <p>Aus: Anzeigen lassen | Ein: Editieren</p>
+                                  {whichOne}
                                 </Form.Field>   
                             </Form>
                             <br></br>
@@ -50,5 +65,6 @@ function Form_Input(props) {
                           </Segment>
     );
 }
+
 
 export default Form_Input;

@@ -88,20 +88,23 @@ export default class ModellierungFinished extends React.Component {
           // Verknüpfen mit Output
           
           this.state.NewOutputArray.forEach(itemNewOutput => {
-            console.log(itemNewOutput.props);
-            dropDownId = itemNewOutput.props.dropDownId;
-            formInputId = itemNewOutput.props.formInputId;
-            btnPlusId = itemNewOutput.props.btnPlusId;
-            btnMinusId = itemNewOutput.props.btnMinusId;
+            if(itemNewOutput.key === b.id){
+              dropDownId = itemNewOutput.props.dropDownId;
+              formInputId = itemNewOutput.props.formInputId;
+              btnPlusId = itemNewOutput.props.btnPlusId;
+              btnMinusId = itemNewOutput.props.btnMinusId;
+            }else{
+              console.log(itemNewOutput);
+              arr.push(itemNewOutput);
+            }
           });
-          arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, item.isFirst, tmpDatatype, isDisabled));
+          arr.unshift(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, item.isFirst, tmpDatatype, isDisabled));
           this.setState({
             NewOutputArray : arr
           });
           let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioId : b.id}]
           let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : "", isEdit : true};
-          this.Output = [];
-          this.Output.push(obj);
+          this.Output[0] = obj;
         }else if(item.isFirst === false){
           console.log("isTrue is not First");
           const alreadyExists = this.state.NewOutputArray.some(ele => {
@@ -150,20 +153,23 @@ export default class ModellierungFinished extends React.Component {
         if(item.isFirst === true){
           console.log("isFalse is First");
           this.state.NewOutputArray.forEach(itemNewOutput => {
-            console.log(itemNewOutput.props);
+            if(itemNewOutput.key === b.id){
             dropDownId = itemNewOutput.props.dropDownId;
             formInputId = itemNewOutput.props.formInputId;
             btnPlusId = itemNewOutput.props.btnPlusId;
             btnMinusId = itemNewOutput.props.btnMinusId;
+            }else {
+              console.log(itemNewOutput);
+              arr.push(itemNewOutput);
+            }
           });
-          arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, item.isFirst, tmpDatatype, isDisabled));
+          arr.unshift(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, item.isFirst, tmpDatatype, isDisabled));
           this.setState({
             NewOutputArray : arr
           });
           let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioSliderId : b.id}]
           let obj = {idOutputArr : idArr, input : tmpInput, datatype : tmpDatatype, id : uuid(), data : "", isEdit : false};
-          this.Output = [];
-          this.Output.push(obj);
+          this.Output[0]= obj;
 
         }else if(item.isFirst === false){
           console.log("isFalse is not First");
@@ -180,10 +186,7 @@ export default class ModellierungFinished extends React.Component {
               arr.push(element);
             }
           });
-          console.log(...this.Output[0].idOutputArr);
-          console.log(...this.Output[1].idOutputArr);
-          console.log(...this.Output[2].idOutputArr);
-          console.log(this.Output[3].idOutputArr);
+
           this.setState({
             NewOutputArray : arr
           });
@@ -214,7 +217,7 @@ export default class ModellierungFinished extends React.Component {
    }
 
 
-   const createNewInput = <Form_Input key={uuid()} dropDownId={dropDownId} formInputId={formInputId} radioId={radioId} btnPlusId={btnPlusId} btnMinusId={btnMinusId} isFirst={isFirst} datatype={this.state.dummyDatatype}
+   const createNewInput = <Form_Input key={uuid()} dropDownId={dropDownId} formInputId={formInputId} radioId={radioId} btnPlusId={btnPlusId} btnMinusId={btnMinusId} isFirst={isFirst} datatype={this.state.dummyDatatype} 
                           dropDownFunc={this.onChangeInputSelection.bind(this)}
                           inputFunc={this.onSubmitProzessInput.bind(this)}
                           radioFunc={this.handleRadioInputChange.bind(this)}
@@ -325,7 +328,7 @@ console.log("1.1-:" + this.state.NewOutputArray);
 
  onSubmitProzess = () => {
   let isFilled = true;
-  /* this.Input.map(item => {
+  this.Input.map(item => {
    if(item.datatype === "" || item.input === ""){
       
       isFilled = false;
@@ -339,7 +342,7 @@ console.log("1.1-:" + this.state.NewOutputArray);
   if(isFilled === false || this.prozessName === ""){
     alert("Bitte alles ausfüllen");
     return;
-  }*/
+  }
   console.log(this.Output);
   console.log(this.Input);
 
@@ -414,9 +417,9 @@ onChangeOutputSelection (a,b) {
  console.log(this.Output);
 }
 
- updateInput(key, dropDownId, formInputId, radioId, btnPlusId, btnMinusId, isFirst, datatype, input){
+ updateInput(key, dropDownId, formInputId, radioId, btnPlusId, btnMinusId, isFirst, datatype, input, checked){
     return(
-    <Form_Input key={key} dropDownId={dropDownId} formInputId={formInputId} radioId={radioId} btnPlusId={btnPlusId} btnMinusId={btnMinusId} isFirst={isFirst} datatype={datatype} value={input}
+    <Form_Input key={key} dropDownId={dropDownId} formInputId={formInputId} radioId={radioId} btnPlusId={btnPlusId} btnMinusId={btnMinusId} isFirst={isFirst} datatype={datatype} value={input} defaultChecked={checked}
     dropDownFunc={this.onChangeInputSelection.bind(this)}
     inputFunc={this.onSubmitProzessInput.bind(this)}
     radioFunc={this.handleRadioInputChange.bind(this)}
@@ -491,7 +494,7 @@ onChangeOutputSelection (a,b) {
             isFirst = false;
           }
           let _item = [...item.idInputArr];
-          newInputArr.push(this.updateInput(uuid(), _item[0].dropDownId, _item[1].formInputId, _item[2].radioId, _item[3].btnPlusId, _item[4].btnMinusId, isFirst, item.datatype, item.input));
+          newInputArr.push(this.updateInput(uuid(), _item[0].dropDownId, _item[1].formInputId, _item[2].radioId, _item[3].btnPlusId, _item[4].btnMinusId, isFirst, item.datatype, item.input, item.isEdit));
           this.Input.push(item);
           console.log(item);
           count++;
@@ -508,7 +511,9 @@ onChangeOutputSelection (a,b) {
           }
           let isDisabled = item.isEdit;
           let _item = [...item.idOutputArr];
-          newOutputArr.push(this.updateOutput(uuid(), _item[0].dropDownId, _item[1].formInputId,_item[2].btnPlusId, _item[3].btnMinusId, isFirst, item.datatype, isDisabled, item.input));
+          console.log(item)
+          console.log(_item[4].radioId)
+          newOutputArr.push(this.updateOutput(_item[4].radioId, _item[0].dropDownId, _item[1].formInputId,_item[2].btnPlusId, _item[3].btnMinusId, isFirst, item.datatype, isDisabled, item.input));
           this.Output.push(item);
           console.log(item);
           count++;
@@ -530,6 +535,7 @@ onChangeOutputSelection (a,b) {
         let key, dropDownId, formInputId, radioId, btnPlusId, btnMinusId, isFirst;
         let datatype = "";
         let input = "";
+        let checked = false;
         console.log(NewInputArray.length);
         console.log(NewInputArray);
         NewInputArray.forEach(item => {
@@ -544,9 +550,11 @@ onChangeOutputSelection (a,b) {
             if(dropDownId === item.idInputArr[0].dropDownId){
               datatype = item.datatype;
               input = item.input;
+              checked = item.isEdit;
+
             }
           });
-          arr.push(this.updateInput(key, dropDownId, formInputId, radioId, btnPlusId, btnMinusId, isFirst, datatype, input));
+          arr.push(this.updateInput(key, dropDownId, formInputId, radioId, btnPlusId, btnMinusId, isFirst, datatype, input, checked));
         });
           this.changeArrayState(arr,"input");
           arr = [];
@@ -584,7 +592,7 @@ onChangeOutputSelection (a,b) {
               <Header style={zentriert}>{this.prozess[0].name}</Header>
                 <Form >
                   <Form.Field>
-                    <Label>Geben Sie den Namen des Prozesses ein</Label>
+                    <Label color={"teal"}>Geben Sie den Namen des Prozesses ein</Label>
                     <Input placeholder='Prozessname...' style={zentriert} onChange={this.onSubmitProzessName.bind(this)}  />
                   </Form.Field>     
                 </Form>
@@ -605,7 +613,7 @@ onChangeOutputSelection (a,b) {
             <Grid.Column  >
               <Segment  style={kompakt}>
               <Header style={zentriert}>Bestätigen</Header>
-              <Button style={zentriert} onClick={this.onSubmitProzess.bind(this)}>Bestätigen</Button>
+              <Button style={zentriert} color={"teal"} onClick={this.onSubmitProzess.bind(this)}>Bestätigen</Button>
               </Segment>
             </Grid.Column>
           </Grid.Row>

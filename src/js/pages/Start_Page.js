@@ -19,10 +19,17 @@ export default class Start_Page extends React.Component {
     }
 
     render(){
+        modellierStore.fetchProzesse();
+        modellierStore.fetchCreateProzesse();
+
+        const zentriert = {
+            marginLeft: "auto",
+            marginRight: "auto"
+          }
 
         return (
             <div>
-                <h1>Start Page</h1>
+                <h1 style={zentriert}>Start Page</h1>
             </div>
         )
     }

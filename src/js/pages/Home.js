@@ -84,6 +84,7 @@ export default class Start extends React.Component {
  onClickPlusBtn(){
   this.setState({open : !this.state.open})
  }
+
   
   
   render() {
@@ -98,8 +99,6 @@ export default class Start extends React.Component {
     console.log(Prozesse);
 
     {
-      if(!this.oneTime){
-        let i;
         let id;
         let name;
         this.prozesses = Prozesse;
@@ -110,18 +109,14 @@ export default class Start extends React.Component {
           id = tmpProzess[0].prozessId;
           this.showProzessItems.push(this.createProzessItems(name,id));
         });
-
-      }
-      this.oneTime = true;
     }
 
 
-      
         return (
           <div>
             {this.showProzessItems}
             <Button circular icon='plus' style={spacing} primary onClick={this.onClickPlusBtn.bind(this)} />
-
+            
             <Modal
               onClose={() => this.setState({open : false})}
               onOpen={() => this.setState({open : true})}
