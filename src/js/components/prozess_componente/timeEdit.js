@@ -9,6 +9,12 @@ const zentriert = {
 
 function TimeEdit (props) {
 
+    const isDisabled = props.disabled || false;
+    let _disabled = false;
+    if(isDisabled === true){
+        _disabled = true;
+    }
+
 
     return(
             <Card>
@@ -16,9 +22,9 @@ function TimeEdit (props) {
                     <Form >
                     <Form.Field>
                         <Label color={"teal"}>{props.inputName}</Label>
-                        <Input id={props.id} type="time" placeholder='Edit...' style={zentriert} onChange={props.onChangeFunction}  />
+                        <Input disabled={_disabled} id={props.id} type="time" placeholder='Edit...' style={zentriert} onChange={props.onChangeFunction}  />
                         <Segment>
-                        <Input id={props.id} placeholder='call a function' style={zentriert} onChange={props.onChangeCallFunction}  />
+                        <Input disabled={_disabled} id={props.id} placeholder='call a function' style={zentriert} onChange={props.onChangeCallFunction}  />
                         </Segment> 
                     </Form.Field>                
                     </Form>

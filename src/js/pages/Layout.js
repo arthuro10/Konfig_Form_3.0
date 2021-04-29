@@ -8,6 +8,7 @@ import Start_Page from '../pages/Start_Page'
 import Home from "../pages/Home"
 import Model from "../pages/Modellierung"
 import ModelFinish from "../pages/ModellierungFinished"
+import ModelInput from "../pages/Modellierung_Input_Data"
 import Inner_Comp from "../pages/Inner_Component"
 import Inner_CompFinishedProzesse from "../pages/Inner_ComponentFinishesProzesse"
 import Result from "../pages/Result"
@@ -36,6 +37,7 @@ export default class Layout extends React.Component {
                                 <Route exact path="/home" component={Home}/>
                                 <Route exact path="/model" component={Model}/>
                                 <Route exact path="/modelfinished" component={ModelFinish}/>
+                                <Route exact path="/modelinput" component={ModelInput}/>
                                 <Route exact path="/innercomp" component={Inner_Comp}/>
                                 <Route exact path="/innercompfinished" component={Inner_CompFinishedProzesse}/>
                                 <Route exact path="/result" component={Result}/>

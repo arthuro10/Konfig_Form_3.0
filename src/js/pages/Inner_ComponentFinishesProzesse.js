@@ -264,6 +264,10 @@ onClickEdit(){
   modellierStore.setDieProzess(this.createProzessJSON);
   window.location.hash = '/modelfinished';
 }
+onClickInteraction(){
+
+  window.location.hash = '/interaction';
+}
 
 onClickEditUpdate(){
 
@@ -317,11 +321,7 @@ onClickEditUpdate(){
         return (
           <div>
             <Grid columns='equal'>
-              <Grid.Row stretched>
-                <Grid.Column>
-                  <Header style={zentriert}>INPUT</Header>
-                  {this.showInput}
-                </Grid.Column>
+              <Grid.Row stretched centered>
 
                 <Grid.Column width={6}>
                   <Card>
@@ -347,10 +347,6 @@ onClickEditUpdate(){
 
                 </Grid.Column>
 
-                <Grid.Column>
-                    <Header style={zentriert}>OUTPUT</Header>
-                    {this.showOutput}
-                </Grid.Column>
               </Grid.Row>
 
             </Grid>

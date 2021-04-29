@@ -8,15 +8,10 @@ import modellierStore from "../stores/Modellier_Store"
 export default class Start_Page extends React.Component {
     constructor(props){
         super(props);
-        //modellierStore.fetchProzesse();
-        //modellierStore.fetchCreateProzesse();
         modellierStore.resetDieProzess();
     }
 
-    componentDidMount(){
-        modellierStore.fetchProzesse();
-        modellierStore.fetchCreateProzesse();
-    }
+
 
     render(){
         modellierStore.fetchProzesse();
@@ -24,11 +19,15 @@ export default class Start_Page extends React.Component {
 
         const zentriert = {
             marginLeft: "auto",
-            marginRight: "auto"
+            marginRight: "auto",
+            textAlign : "center"
+          }
+        const background = {
+            backgroundColor : "blue"
           }
 
         return (
-            <div>
+            <div >
                 <h1 style={zentriert}>Start Page</h1>
             </div>
         )

@@ -1,6 +1,6 @@
 import React from 'react'
 import uuid from 'react-uuid';
-import { Button, Segment } from 'semantic-ui-react';
+import { Button, Segment, Grid, GridRow, GridColumn } from 'semantic-ui-react';
 
 import modellierStore from "../stores/Modellier_Store"
 
@@ -41,7 +41,7 @@ export default class JSON_Files extends React.Component{
     createBtn (name,id) {
 
         return(
-            <Segment key={uuid()}>
+            <Segment key={uuid()} textAlign={"center"}>
             <Button id={id} onClick={this.onClickBtn.bind(this)} primary>
             {name}
             </Button>
@@ -80,21 +80,18 @@ export default class JSON_Files extends React.Component{
 
         return(
             <div>
-                {this.showBtn}
+                <Grid>
+                    <Grid.Row centered>
+                        <Grid.Column width={6}>
+                        {this.showBtn}
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+                
             </div>
         )
     }
 }
 
 
-/*
-for(i = 0; i< Prozesse.length; i++){
-                let tmpProzess = [Prozesse[i].prozess_json];
-                console.log(tmpProzess);
-                name = tmpProzess[0].name;
-                id = tmpProzess[0].id;
-                console.log(name);
-                console.log(id);
-                this.showBtn.push(this.createBtn(name,id));
-                
-              } */
+

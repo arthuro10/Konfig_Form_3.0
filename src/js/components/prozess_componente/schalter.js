@@ -13,14 +13,21 @@ export default class Schalter extends React.Component {
         
     }    
 
+
     render(){
+
+    const isDisabled = this.props.disabled || false;
+    let _disabled = false;
+    if(isDisabled === true){
+        _disabled = true;
+    }
 
         return(
             <Card >
                 <Segment>
                     <Label color={"teal"}>{this.props.inputName}</Label>
                     <Header>{this.props.text}</Header>
-                    <Button content={this.props.inputName} id={this.props.id} style={zentriert} color={this.props.color} onClick={this.props.onClickFunction} >True?</Button>
+                    <Button disabled={_disabled} content={this.props.inputName} id={this.props.id} style={zentriert} color={this.props.color} onClick={this.props.onClickFunction} >True?</Button>
                 </Segment>
             </Card>
         );

@@ -17,10 +17,16 @@ class ModellierStore {
 
     @observable allCreateProzesses = [];
 
+    @observable allInput_Data = [];
+    @observable Input_Data = [];
+
     @observable loading = "";
 
     @action setDieProzess(item) {
         this.dieProzesse.push(item);
+    }
+    @action setInput_Data(item) {
+        this.Input_Data.push(item);
     }
     @action resetDieProzess() {
         this.dieProzesse = [];
@@ -164,7 +170,7 @@ class ModellierStore {
     }
 
     @action fetchCreateProzesse() {
-        return  fetch(this.baseURL+'api/createProzess', {
+        return  fetch(this.baseURL+'api/createJsonFile', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -198,32 +204,39 @@ class ModellierStore {
             ); 
     }
 
+    @action deletingProzess(ID) {
+        console.log(ID);
+        return fetch(this.baseURL+'api/prozess/' + ID, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+        })
+            .then(response => {
+                if (response.status >= 200 && response.status < 300) {
+                    response.json().then(json => {
+                        console.log("Prozess deleted");
+                        
+                    });
+
+                } else {
+                    this.error = "Error on fetching";
+                }
+            })
+            .catch(
+                error => {
+                    this.error = "Error on fetching";
+                    throw error;
+                }
+            );
+    }
+
+
 }
  
 
 const store = new ModellierStore();
 
     export default store;
-
-
-
-    /**
-     * let i;
-        for(i = 0; i< this.dieProzesse.length; i++){
-
-            let j;
-            for(j = 0; j<this.dieProzesse[i].InputArr.length;j++){
-
-                console.log(this.dieProzesse[i]);
-
-                if(id === this.dieProzesse[i].InputArr[j].id ){
-                    this.dieProzesse[i].InputArr[j].editing = value;
-                    // Weil nur editierbare Komponenten diese Funktion hier aufrufen
-                    // Und damit sogleich auch die Output Daten sind
-                    this.dieProzesse[i].OutputArr[j].datatype = this.dieProzesse[i].InputArr[j].datatype;
-                    this.dieProzesse[i].OutputArr[j].input = this.dieProzesse[i].InputArr[j].input;
-                    this.dieProzesse[i].OutputArr[j].data = value;
-                }
-            }
-          }
-     */

@@ -1,0 +1,36 @@
+[
+    {
+        "id" : 123,
+        "input_data" : [
+            {
+                "id" : 321,
+                "datatype" : "string",
+                "input" : "Arthur Becker",
+                "isEdit" : false
+            },
+            {
+                "id" : 123,
+                "datatype" : "number",
+                "input" : 555,
+                "isEdit" : true
+            }
+        ]
+    },
+    {
+        "id" : 333,
+        "input_data" : [
+            {
+                "id" : 444,
+                "datatype" : "string",
+                "input" : "Dragovic",
+                "isEdit" : true
+            },
+            {
+                "id" : 999,
+                "datatype" : "time",
+                "input" : "18:40",
+                "isEdit" : false
+            }
+        ]
+    }
+]

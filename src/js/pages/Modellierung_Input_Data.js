@@ -28,14 +28,17 @@ import Form_Output from '../components/Form_Output'
 
  
 @observer
-export default class Modellierung extends React.Component {
+export default class ModellierungInput extends React.Component {
   constructor(props) {
     super(props); 
     this.createProzessJSON = {};
     this.prozessName = "";
+    this.prozessId = 1;
 
     this.Input = [];
     this.Output = [];
+
+    this.input_data;
 
     this.simpleBoolean = false;
 
@@ -45,7 +48,7 @@ export default class Modellierung extends React.Component {
       NewOutputArray : [],
       dummyDatatype : ''
     };
-    //this.resetVariables();
+    this.resetVariables();
     
  }
 
@@ -56,6 +59,8 @@ export default class Modellierung extends React.Component {
     this.prozessName = "";
     this.Input = [];
     this.Output = [];
+    this.input_data = [];
+    
     /*this.setState({
       NewInputArray : this.Input,
       NewOutputArray : this.Output
@@ -63,6 +68,7 @@ export default class Modellierung extends React.Component {
 
  }
 
+ 
  handleRadioInputChange = (a,b) => {
   let arr = [];
   let key, dropDownId, formInputId ;
@@ -89,7 +95,7 @@ export default class Modellierung extends React.Component {
               formInputId = itemNewOutput.props.formInputId;
               btnPlusId = itemNewOutput.props.btnPlusId;
               btnMinusId = itemNewOutput.props.btnMinusId;
-            }else if(itemNewOutput !== b.id && this.state.NewInputArray.length > 1){
+            }else{
               console.log(itemNewOutput);
               arr.push(itemNewOutput);
             }
@@ -189,11 +195,6 @@ export default class Modellierung extends React.Component {
           this.Output = this.Output.filter(obj => (
             (obj.idOutputArr[4].radioId !== b.id))
           );
-            console.log(this.Output.filter(obj => {
-              console.log(b.id);
-              console.log(obj.idOutputArr[4].radioId);
-              (obj.idOutputArr[4].radioId !== b.id)
-            }));
 
         }
       }
@@ -201,6 +202,8 @@ export default class Modellierung extends React.Component {
   })
 
 }
+ 
+
 
  onClickChangeInput() {
    console.log("1:" + this.state.NewInputArray);
@@ -216,7 +219,7 @@ export default class Modellierung extends React.Component {
    }
 
 
-   const createNewInput = <Form_Input key={uuid()} dropDownId={dropDownId} formInputId={formInputId} radioId={radioId} btnPlusId={btnPlusId} btnMinusId={btnMinusId} isFirst={isFirst} datatype={this.state.dummyDatatype}
+   const createNewInput = <Form_Input key={uuid()} dropDownId={dropDownId} formInputId={formInputId} radioId={radioId} btnPlusId={btnPlusId} btnMinusId={btnMinusId} isFirst={isFirst} datatype={this.state.dummyDatatype} 
                           dropDownFunc={this.onChangeInputSelection.bind(this)}
                           inputFunc={this.onSubmitProzessInput.bind(this)}
                           radioFunc={this.handleRadioInputChange.bind(this)}
@@ -230,70 +233,70 @@ export default class Modellierung extends React.Component {
     let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{radioId : radioId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId}]
     let obj = {idInputArr : idArr, input : "", datatype : "", isEdit : false, editing : "", id : idObj, isFirst : isFirst };
     this.Input.push(obj);
-
+    console.log(this.Input);
   
  }
  onClickMinusInput(a,b) {
-    console.log("1.1:" + this.state.NewInputArray);
-    console.log(this.state.NewInputArray)
-    let isEdit = false;
-    this.Input.forEach(item => {
-      if(item.idInputArr[4].btnMinusId === b.id){
-          if(item.isEdit === true){
-            isEdit = true;
-          }
-      }
-    });
-    if(isEdit === true){
-      alert("Erst Edit Slider auf OFF stellen");
-      return
-    }
-
-    let newArr = this.state.NewInputArray.filter(item => (
-      (item.props.btnMinusId !== b.id)
-    ));
-    console.log(this.Input);
-    this.Input = this.Input.filter(item => (
-      (item.idInputArr[4].btnMinusId !== b.id)
-    ));
-    console.log(this.Input);
-    this.setState({ NewInputArray: newArr })
-
-    console.log("2.1:" + this.state.NewInputArray);
-    this.simpleBoolean = true;
-  
- }
- onClickMinusOutput(a,b) {
-  console.log("1.1-:" + this.state.NewOutputArray);
-    let isEdit = false;
-    this.state.NewOutputArray.forEach(item => {
-      if(b.id === item.props.btnMinusId){
-        console.log(item);
-        if(item.props.isDisabled === true){
+  console.log("1.1:" + this.state.NewInputArray);
+  console.log(this.state.NewInputArray)
+  let isEdit = false;
+  this.Input.forEach(item => {
+    if(item.idInputArr[4].btnMinusId === b.id){
+        if(item.isEdit === true){
           isEdit = true;
         }
-      }
-      
-    });
-    if(isEdit === true){
-      alert("Erst Edit Slider auf OFF stellen");
-      return
     }
-    let newArr = this.state.NewOutputArray.filter(item => (
-      (item.props.btnMinusId !== b.id)
-    ));
-    console.log(this.Output);
-    this.Output = this.Output.filter(item => {
-      console.log(b.id);
-      console.log(item.idOutputArr[3].btnMinusId);
-      return item.idOutputArr[3].btnMinusId !== b.id
-    } );
-    console.log(this.Output);
-    this.setState({ NewOutputArray: newArr })
-    console.log("2.1-:" + this.state.NewOutputArray);
-    console.log(this.state.NewOutputArray);
-    this.simpleBoolean = true;
- }
+  });
+  if(isEdit === true){
+    alert("Erst Edit Slider auf OFF stellen");
+    return
+  }
+
+  let newArr = this.state.NewInputArray.filter(item => (
+    (item.props.btnMinusId !== b.id)
+  ));
+  console.log(this.Input);
+  this.Input = this.Input.filter(item => (
+    (item.idInputArr[4].btnMinusId !== b.id)
+  ));
+  console.log(this.Input);
+  this.setState({ NewInputArray: newArr })
+
+  console.log("2.1:" + this.state.NewInputArray);
+  this.simpleBoolean = true;
+
+}
+onClickMinusOutput(a,b) {
+console.log("1.1-:" + this.state.NewOutputArray);
+  let isEdit = false;
+  this.state.NewOutputArray.forEach(item => {
+    if(b.id === item.props.btnMinusId){
+      console.log(item);
+      if(item.props.isDisabled === true){
+        isEdit = true;
+      }
+    }
+    
+  });
+  if(isEdit === true){
+    alert("Erst Edit Slider auf OFF stellen");
+    return
+  }
+  let newArr = this.state.NewOutputArray.filter(item => (
+    (item.props.btnMinusId !== b.id)
+  ));
+  console.log(this.Output);
+  this.Output = this.Output.filter(item => {
+    console.log(b.id);
+    console.log(item.idOutputArr[3].btnMinusId);
+    return item.idOutputArr[3].btnMinusId !== b.id
+  } );
+  console.log(this.Output);
+  this.setState({ NewOutputArray: newArr })
+  console.log("2.1-:" + this.state.NewOutputArray);
+  console.log(this.state.NewOutputArray);
+  this.simpleBoolean = true;
+}
 
  onClickChangeOutput() {
   console.log("1-:" + this.state.NewOutputArray);
@@ -318,8 +321,8 @@ export default class Modellierung extends React.Component {
     let newArr = this.state.NewOutputArray.concat(createNewOutput);
     this.setState({ NewOutputArray: newArr })
     console.log("2-:" + this.state.NewOutputArray);
-    let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId},{radioId : uuid()}]
-    let obj = {idOutputArr : idArr, input : "", datatype : "", isEdit : false, id : idObj, data : "", isFirst : isFirst};
+    let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId}]
+    let obj = {idOutputArr : idArr, input : "", datatype : "", id : idObj, data : ""};
     this.Output.push(obj);
 
   
@@ -328,12 +331,11 @@ export default class Modellierung extends React.Component {
  onSubmitProzess = () => {
   let isFilled = true;
   this.Input.map(item => {
-    if(item.datatype === "" || item.input === ""){
+   if(item.datatype === "" || item.input === ""){
       
       isFilled = false;
     }
   });
-  console.log(this.Output);
   this.Output.map(item => {
     if(item.datatype === "" || item.input === ""){
       isFilled = false;
@@ -346,15 +348,16 @@ export default class Modellierung extends React.Component {
   console.log(this.Output);
   console.log(this.Input);
 
-   this.createProzessJSON = {name : this.prozessName, prozessId : uuid(), InputArr : this.Input, OutputArr : this.Output}
+   this.createProzessJSON = {name : this.prozessName, prozessId : this.prozessId, InputArr : this.Input, OutputArr : this.Output}
    console.log(this.createProzessJSON);
+   modellierStore.resetDieProzess();
    modellierStore.setDieProzess(this.createProzessJSON);
    console.log(this.Input[0].isEdit);
    if(this.Input[0].isEdit === false){
-    window.location.hash = '/innercomp';
+    window.location.hash = '/innercompfinished';
 
    }else{
-    window.location.hash = '/innercomp';
+    window.location.hash = '/innercompfinished';
 
    }
    
@@ -388,37 +391,37 @@ export default class Modellierung extends React.Component {
  }
 
  onChangeInputSelection (a,b) {
-   this.Input.forEach(item => {
-    if(b.id === item.idInputArr[0].dropDownId){
-      item.datatype = b.value;
-      console.log(item.datatype);
-      this.setState({
-        dummyDatatype : b.value
-      });
-      this.simpleBoolean = true;
-    }
-   });
-  
-
- }
- onChangeOutputSelection (a,b) {
-  this.Output.forEach(item => {
-    if(b.id === item.idOutputArr[0].dropDownId){
-      console.log('Done');
-      item.datatype = b.value;
-      console.log(item.datatype);
-      this.setState({
-        dummyDatatype : b.value
-      });
-      this.simpleBoolean = true;
-    }
+  this.Input.forEach(item => {
+   if(b.id === item.idInputArr[0].dropDownId){
+     item.datatype = b.value;
+     console.log(item.datatype);
+     this.setState({
+       dummyDatatype : b.value
+     });
+     this.simpleBoolean = true;
+   }
   });
-  console.log(this.Output);
- }
+ 
 
- updateInput(key, dropDownId, formInputId, radioId, btnPlusId, btnMinusId, isFirst, datatype){
+}
+onChangeOutputSelection (a,b) {
+ this.Output.forEach(item => {
+   if(b.id === item.idOutputArr[0].dropDownId){
+     console.log('Done');
+     item.datatype = b.value;
+     console.log(item.datatype);
+     this.setState({
+       dummyDatatype : b.value
+     });
+     this.simpleBoolean = true;
+   }
+ });
+ console.log(this.Output);
+}
+
+ updateInput(key, dropDownId, formInputId, radioId, btnPlusId, btnMinusId, isFirst, datatype, input, checked){
     return(
-    <Form_Input key={key} dropDownId={dropDownId} formInputId={formInputId} radioId={radioId} btnPlusId={btnPlusId} btnMinusId={btnMinusId} isFirst={isFirst} datatype={datatype}
+    <Form_Input key={key} dropDownId={dropDownId} formInputId={formInputId} radioId={radioId} btnPlusId={btnPlusId} btnMinusId={btnMinusId} isFirst={isFirst} datatype={datatype} value={input} defaultChecked={checked}
     dropDownFunc={this.onChangeInputSelection.bind(this)}
     inputFunc={this.onSubmitProzessInput.bind(this)}
     radioFunc={this.handleRadioInputChange.bind(this)}
@@ -426,9 +429,9 @@ export default class Modellierung extends React.Component {
     btnMinusFunc={this.onClickMinusInput.bind(this)} />
     )
  }
- updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, datatype, isDisabled){
+ updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, datatype, isDisabled, input){
     return(
-      <Form_Output key={key} dropDownId={dropDownId} formInputId={formInputId} btnPlusId={btnPlusId} btnMinusId={btnMinusId} isDisabled={isDisabled} isFirst={isFirst} datatype={datatype}
+      <Form_Output key={key} dropDownId={dropDownId} formInputId={formInputId} btnPlusId={btnPlusId} btnMinusId={btnMinusId} isDisabled={isDisabled} isFirst={isFirst} datatype={datatype} value={input}
       dropDownFunc={this.onChangeOutputSelection.bind(this)}
       inputFunc={this.onSubmitProzessOutput.bind(this)}
       btnPlusFunc={this.onClickChangeOutput.bind(this)} 
@@ -457,11 +460,6 @@ export default class Modellierung extends React.Component {
   
   render() {
 
-    const spacing = {
-      marginLeft: "35px",
-      marginRight: "15px",
-    };
-
     const zentriert = {
       marginLeft: "auto",
       marginRight: "auto"
@@ -477,31 +475,63 @@ export default class Modellierung extends React.Component {
 
     const {NewOutputArray} = this.state;
     const {NewInputArray} = this.state;
-    const {dummyDatatype} = this.state
+    const {Input_Data} = modellierStore
 
+    this.input_data = [...Input_Data]
+    console.log(this.input_data);
+    {
+      if(this.Input.length < 1 && this.Output.length < 1){
+        console.log("this.Input.length < 1 && this.Output.length < 1");
+        this.prozessId = this.input_data[0].Id;
+        let inputArr = [...this.input_data[0].input_data];
+        let newInputArr = []
+        let count = 0;
+        let isFirst = false;
+        let isOneEdit = false;
 
-    {if(NewInputArray[0] === undefined){
-      console.log("Test 1");
-      this.onClickChangeInput();
-    }}
+        console.log(inputArr);
+        inputArr.forEach(item => {
+          let dropDownId = uuid();
+          let formInputId = uuid();
+          let radioId = uuid();
+          let btnPlusId = uuid();
+          let btnMinusId = uuid();
+          if(count === 0){
+            isFirst = true;
+          }else{
+            isFirst = false;
+          }
+          console.log(item);
+          newInputArr.push(this.updateInput(uuid(), dropDownId, formInputId, radioId, btnPlusId, btnMinusId, isFirst, item.datatype, item.input, item.isEdit));
+          let idArr = [{dropDownId : dropDownId},{formInputId: formInputId},{radioId : radioId},{btnPlusId : btnPlusId},{btnMinusId : btnMinusId}]
+          let obj = {idInputArr : idArr, input : item.input, datatype : item.datatype, isEdit : item.isEdit, editing : "", id : item.id, isFirst : isFirst };
+          this.Input.push(obj);
+          if(item.isEdit === true){
+            isOneEdit = true;
+          }
+          count++;
+        });
+        console.log(newInputArr)
+        this.changeArrayState(newInputArr,"input");
+        if(isOneEdit === false){
+          
+        }else{
+          // iterieren durch input Arr und bei allen is Edit ... eine Output Komponente erstellen. 
+        }
 
-    {if(NewOutputArray[0] === undefined  ){
-      console.log("Test 2");
-      this.onClickChangeOutput();
-    }}
-
-    if(this.Output.length === 0){
-      console.log("Test 3");
-      this.onClickChangeOutput();
+      }
     }
 
-    
+
     {
       if(this.simpleBoolean){
         let arr = [];
         let key, dropDownId, formInputId, radioId, btnPlusId, btnMinusId, isFirst;
         let datatype = "";
+        let input = "";
+        let checked = false;
         console.log(NewInputArray.length);
+        console.log(NewInputArray);
         NewInputArray.forEach(item => {
           key = item.key;
           dropDownId = item.props.dropDownId;
@@ -513,12 +543,17 @@ export default class Modellierung extends React.Component {
           this.Input.forEach(item => {
             if(dropDownId === item.idInputArr[0].dropDownId){
               datatype = item.datatype;
+              input = item.input;
+              checked = item.isEdit;
+
             }
           });
-          arr.push(this.updateInput(key, dropDownId, formInputId, radioId, btnPlusId, btnMinusId, isFirst, datatype));
+          arr.push(this.updateInput(key, dropDownId, formInputId, radioId, btnPlusId, btnMinusId, isFirst, datatype, input, checked));
         });
           this.changeArrayState(arr,"input");
           arr = [];
+          console.log(NewOutputArray.length);
+          console.log(NewOutputArray);
           NewOutputArray.forEach(item => {
             key = item.key;
             dropDownId = item.props.dropDownId;
@@ -531,9 +566,10 @@ export default class Modellierung extends React.Component {
               if(dropDownId === item.idOutputArr[0].dropDownId){
                 console.log("j for");
                 datatype = item.datatype;
+                input = item.input;
               }
             });
-            arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, datatype, isDisabled));
+            arr.push(this.updateOutput(key, dropDownId, formInputId,btnPlusId, btnMinusId, isFirst, datatype, isDisabled, input));
           });
           this.changeArrayState(arr,"output");
           this.simpleBoolean = false;
@@ -547,7 +583,7 @@ export default class Modellierung extends React.Component {
             <Grid.Row  >
             <Grid.Column  >
               <Segment  style={kompakt}>
-              <Header style={zentriert}>Prozessname</Header>
+              <Header style={zentriert}></Header>
                 <Form >
                   <Form.Field>
                     <Label color={"teal"}>Geben Sie den Namen des Prozesses ein</Label>
@@ -579,5 +615,4 @@ export default class Modellierung extends React.Component {
         );
     }
 }
-
 

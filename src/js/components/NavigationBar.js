@@ -35,7 +35,7 @@ export default class NavigationBar extends Component {
     return (
       <Menu pointing  className={"myNavBar"}>
         <Menu.Item > 
-         <Header>   Prozess Modellierung  </Header>                    
+         <Header>   Konfigurierbare Formulare  </Header>                    
         </Menu.Item>
         <Menu.Item></Menu.Item>
         <Menu.Item></Menu.Item>

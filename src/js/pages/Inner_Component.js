@@ -72,6 +72,7 @@ export default class Inner_Component extends React.Component {
     prozessName={prozName}
     inputName={inputName}
     id={id}
+    disabled={true}
     onChangeFunction={this.onChangeEdit.bind(this)}
     onChangeCallFunction={this.onChangeCallFunction.bind(this)} />
   }else if(datatype === "number"){
@@ -80,6 +81,7 @@ export default class Inner_Component extends React.Component {
                   prozessName={prozName}
                   inputName={inputName}
                   id={id}
+                  disabled={true}
                   onChangeFunction={this.onChangeEdit.bind(this)}
                   onChangeCallFunction={this.onChangeCallFunction.bind(this)} />
 
@@ -88,6 +90,7 @@ export default class Inner_Component extends React.Component {
     prozessName={prozName}
     inputName={inputName}
     id={id}
+    disabled={true}
     onChangeFunction={this.onChangeEdit.bind(this)}
     onChangeCallFunction={this.onChangeCallFunction.bind(this)} />
   }else if(datatype === "date"){
@@ -95,6 +98,7 @@ export default class Inner_Component extends React.Component {
     prozessName={prozName}
     inputName={inputName}
     id={id}
+    disabled={true}
     onChangeFunction={this.onChangeEdit.bind(this)}
     onChangeCallFunction={this.onChangeCallFunction.bind(this)} />
 
@@ -118,6 +122,7 @@ export default class Inner_Component extends React.Component {
     text={isTrue}
     id={id}
     color={color}
+    disabled={true}
     onClickFunction={this.onClickButton.bind(this)}
     inputName={inputName} />
     this.colorBtnArr.push({color : color, id : id, isTrue : isTrue});
@@ -266,9 +271,18 @@ onClickEdit(){
 
   window.location.hash = '/result';
 }
+onClickBack(){
+
+  window.location.hash = '/model';
+}
 
 
   render() {
+
+    const btnSpace = {
+      marginLeft: "55px",
+      marginRight: "5px",
+    }
 
 
     const {dieProzesse} = modellierStore;
@@ -317,7 +331,7 @@ onClickEdit(){
                 <Grid.Column width={6}>
                   <Card>
                       <Card.Content>
-                        <Card.Header>Komponente</Card.Header>
+                        <Card.Header>Komponenten Vorschau</Card.Header>
                         <Divider></Divider>
                         <Card.Header><i>{this.prozessName}</i></Card.Header>
                       </Card.Content>
@@ -328,10 +342,10 @@ onClickEdit(){
 
                   <Card>
                       <Card.Content>
-                        <Card.Header>Bestätigen</Card.Header>
+                        <Card.Header>Weiter</Card.Header>
                       </Card.Content>
                       <Card.Content>
-                        <Button primary onClick={this.onClickEdit.bind(this)}> Bestätigen</Button>
+                        <Button primary onClick={this.onClickEdit.bind(this)}>Weiter!</Button>
                       </Card.Content>
                   </Card>
                 </Grid.Column>
@@ -374,38 +388,4 @@ onClickEdit(){
 }
 
 
-/*
-{
-      if(this.oneTime === true){
-        let i;
-        console.log(prozData);
-        for(i = 0; i< prozData.length; i++){
-          const name = prozData[i].name;
-          this.prozessName = prozData[i].name;
-          this.prozessInputData = [...prozData[0].InputArr];
-          this.prozessOutputData = [...prozData[0].OutputArr];
-          let j;
-          for(j = 0; j<this.prozessInputData.length;j++){
-            console.log("prozess Input");
-            if(this.prozessInputData[j].isEdit){
-              this.showCards.push(this.Card_Content(name,this.prozessInputData[j].input,this.prozessInputData[j].id,this.prozessInputData[j].datatype));
-            }else{
-              this.showCards.push(this.ShowCard_Content(this.prozessInputData[j].input,this.prozessInputData[j].datatype,this.prozessInputData[j].id));
-            }
-            this.showInput.push(this.Input_Content(this.prozessInputData[j].input,this.prozessInputData[j].datatype));
-            
-          }
-          let k;
-          for(k = 0; k<this.prozessOutputData.length;k++){
-            console.log("prozess Output");
-
-            this.showOutput.push(this.Output_Content(this.prozessOutputData[k].input,this.prozessOutputData[k].datatype));
-            
-          }
-          
-        }
-      }
-      this.oneTime = false;
-    }
-}*/
-
+// Alle Komponenten auf Disabled gestellt 

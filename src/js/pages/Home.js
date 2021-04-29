@@ -33,7 +33,7 @@ export default class Start extends React.Component {
   modellierStore.fetchCreateProzesse();
 }
 
- onClickCardItem(a,b){
+ onClickKomponente(a,b){
   let id;
   let name;
   let inputArr;
@@ -58,17 +58,40 @@ export default class Start extends React.Component {
   window.location.hash = '/innercompfinished';
   
  }
+ onClickDelete(a,b){
+  let id;
+  this.prozesses.forEach(item => {
+    let tmpProzess = [...item.prozess];
+    id = tmpProzess[0].prozessId;
+      if(id === b.id){
+        modellierStore.deletingProzess(item.id);
+        location.hash = "/"
+      }
+  });
+  
+  
+ }
 
  createProzessItems(prozessName,id){
     return(
-      <Card style={spacing} key={uuid()} id={id} onClick={this.onClickCardItem.bind(this)} >
+      <Card style={spacing} key={uuid()} id={id}  >
           <Card.Content extra>
             <Header>{prozessName}</Header>
+          </Card.Content>
+          <Card.Content extra>
+            <Button color="green" id={id} onClick={this.onClickKomponente.bind(this)}>Komponente</Button>
+            <Button color="red" id={id}  onClick={this.onClickDelete.bind(this)}>Delete</Button>
           </Card.Content>
       </Card>
     )
  }
 
+ onClickChangeInput() {
+  this.setState({open : false})
+  console.log(window.location.hash);
+  window.location.hash = '/input_data';
+  
+ }
  onClickChangeNormal() {
   this.setState({open : false})
   console.log(window.location.hash);
@@ -115,7 +138,7 @@ export default class Start extends React.Component {
         return (
           <div>
             {this.showProzessItems}
-            <Button circular icon='plus' style={spacing} primary onClick={this.onClickPlusBtn.bind(this)} />
+            <Button circular icon='plus'  style={spacing} primary onClick={this.onClickPlusBtn.bind(this)} />
             
             <Modal
               onClose={() => this.setState({open : false})}
@@ -132,19 +155,17 @@ export default class Start extends React.Component {
                 </Modal.Description>
               </Modal.Content>
               <Modal.Actions>
-                <Button color='black' onClick={this.onClickChangeNormal.bind(this)}>
-                  Normal
+                <Button color="black"  onClick={this.onClickChangeNormal.bind(this)}>
+                Generiere JSON
                 </Button>
                 <Button
                   color='green'
                   onClick={this.onClickChangeJSON.bind(this)}
                 >
-                JSON
+                Import JSON
                 </Button>
               </Modal.Actions>
             </Modal>
-            
-
           </div>
         
         );
