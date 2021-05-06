@@ -77,11 +77,11 @@ Javascript. \cite{Weiss2019}
 
 \section{React}
 React ist eine Frontend Bibliothek, die es dem Programmier ermöglicht eine moderne Webseite zu programmieren. 
-Gerade für Snngle Page Applications wird React häufig verwendet. Im Gegensatz zu anderen Frameworks, gibt es in React keine proprietäre Kommandos die gelernt werden muss. Hier wird mit JavaScript und der Erweiterung Es6 gearbeitet. 
+Gerade für Single Page Applications wird React häufig verwendet. Im Gegensatz zu anderen Frameworks, gibt es in React keine proprietäre Kommandos die gelernt werden muss. Hier wird mit JavaScript und der Erweiterung Es6 gearbeitet. 
 
 
 \section{UUID}
-UUID steht für "Universally Unique Identifier". Auch als GUID bekannt (Globally Unique Identifier). Diese ID ist 128 bit groß und garantiert globale Einzigartigkeit. \cite{rfc4122} Damit kann sichergestellt werden, dass Komponente die eine ID zugewiesen bekommen haben, immer eindeutig ansprechbar sind.
+UUID steht für Universally Unique Identifier. Auch als GUID bekannt (Globally Unique Identifier). Diese ID ist 128 bit groß und garantiert globale Einzigartigkeit. \cite{rfc4122} Damit kann sichergestellt werden, dass Komponente die eine ID zugewiesen bekommen haben, immer eindeutig ansprechbar sind.
 
 \section{MobX}
 Eine alternative Möglichkeit um auf Events zu reagieren. 
@@ -93,7 +93,7 @@ Damit kann eine Mehrzahl an Komponenten auf das gleiche Event reagieren, ohne vi
 
 
 \chapter{Problem und Anforderungsanalyse}
-Formularkomponente haben meist einen festgelegten Aufbau, der sich ohne weiteren Programmieraufwand nicht verändert. Bei Fällen, in denen man die gleichen Daten eines Users benötigt, wie zum Beispiel in Registrierungen, ist dieser Ansatz erfolgreich. Bei Formularen, bei denen die Anzahl der Formularelemente abhängig von bestimmten Daten ist, stoßt der statische Ansatz auf seine Grenzen. Aus diesem Grund ist das Erstellen von konfigurierbaren Formularen eine Notwendigkeit. Da dadurch Use Cases abgedeckt werden, bei denen der Aufbau der Formularkomponenten abhängig von Eingabedaten ist. Als Beispiel kann man Prozesse abbilden, die sich vom inneren Aufbau ändern, je nachdem welche Input-Daten eingegeben werden.  
+Formularkomponente haben meist einen festgelegten Aufbau, der sich ohne weiteren Programmieraufwand nicht verändert. Bei Fällen, in denen man die gleichen Daten eines Users benötigt, wie zum Beispiel in Registrierungen, ist dieser Ansatz erfolgreich. Bei Formularen, bei denen die Anzahl der Formularelemente abhängig von bestimmten Daten ist, stößt der statische Ansatz auf seine Grenzen. Aus diesem Grund ist das Erstellen von konfigurierbaren Formularen eine Notwendigkeit. Da dadurch Use Cases abgedeckt werden, bei denen der Aufbau der Formularkomponenten abhängig von Eingabedaten ist. Als Beispiel kann man Prozesse abbilden, die sich vom inneren Aufbau ändern, je nachdem welche Input-Daten eingegeben werden.  
 
 
 \section{Musskriterien}
@@ -123,7 +123,7 @@ In der Webentwicklung gibt es viele Frameworks die für die verschiedensten Use 
 
 
 \section{Backend}
-Da genügend Erfahrung mit Node.js vorhanden ist, wird für dieses ProjektNode.js in Verbindung mit Express.js verwendet. 
+Da genügend Erfahrung mit Node.js vorhanden ist, wird für dieses Projekt Node.js in Verbindung mit dem Framework Express.js verwendet. 
 
 
 
@@ -134,11 +134,11 @@ Damit die Daten sicher und ohne Komplikationen gespeichert werden können brauch
 
 \section{Webapp}
 Als Frontend Framework wird React eingesetzt. Einerseits, weil genügend Erfahrung mit diesem Framework vorhanden ist und andererseits weil es den Anforderungen genügt. 
-React verwendet als Sprache hauptsächlich JavaScript. Mit JS kann mittels der Fetch Methode von Backend Systemen beziehungsweise APIs Daten geladen werden. Bedeutet, man ist in der Lage JSON Dateien, die für die Konfiguration der Formulare eingesetzt werden, einfach vom Server zu beziehen. Zudem bietet die Sprache die Möglichkeit mit JSON Files umzugehen. Da Komponenten auch in Arrays geladen werden können und die Inhalte der Datenstruktur hinzugefügt oder entfernt werden können, ist man in der Lage dynamische Komponenten zu laden, was für das Erstellen der dynamischen behilflich sein kann. 
+React verwendet als Sprache hauptsächlich JavaScript. Mit JS kann mittels der Fetch Methode von Backend Systemen beziehungsweise APIs Daten laden. Bedeutet, man ist in der Lage JSON Dateien, die für die Konfiguration der Formulare eingesetzt werden, einfach vom Server zu beziehen. Zudem bietet die Sprache die Möglichkeit mit JSON Files umzugehen. Weiter wird JSX unterstützt. Das hilft in JavaScript mit Tags zu arbeiten. Dynamisches laden von bestimmten Tags wird somit unterstützt. 
 
 
 Für das Design der Webseite ist der Einsatz eines Design-Templates, wie z.B. Semantic-UI
-hilfreich. Da dadurch eine gute Darstellung möglich ist. 
+hilfreich. Da dadurch eine gute Darstellung ermöglicht wird. 
 Die Dokumentation auf der Webseite von Semantic-UI ist verständlich und
 bietet mit Code Beispielen eine gute Unterstützung.
 \\
@@ -189,7 +189,7 @@ Da die Darstellung soweit fertig ist, ist die Logik der nächste Schritt. Als Er
     }
    });
 \end{lstlisting}
-this.Input ist ein Array, das die Daten der Boxen speichert. Mittels der Foreach Schleife iteriert man durch die dieses Array. Das Ziel dabei ist es, das Element zu finden, dass dieselbe Id hat wie die vom Dropdown, die den Callback ausgelöst hat. Beim passenden Datensatz wird nun der Datentyp auf den Wert der sich in b.value verbirgt geändert. Das neu Setzen der Dummy Variable hat folgende Gründe. Zuerst muss neu gerendert werden, damit die Veränderung im Dropdown zusehen ist, zudem wird eine Voreinstellung für die nächste Box erstellt. Heißt, wird über den Plus Button eine neue Box erstellt, ist der Datentyp der, der zuletzt eingestellt wurde.
+this.Input ist ein Array, das die Daten der Boxen speichert. Mittels der Foreach Schleife iteriert man durch dieses Array. Das Ziel dabei ist es, das Element zu finden, dass dieselbe Id hat wie die vom Dropdown, die den Callback ausgelöst hat. Beim passenden Datensatz wird nun der Datentyp auf den Wert der sich in b.value verbirgt geändert. Das neu Setzen der State Dummy Variable hat folgende Gründe. Zuerst muss neu gerendert werden, damit die Veränderung im Dropdown zusehen ist, zudem wird eine Voreinstellung für die nächste Box erstellt. Heißt, wird über den Plus Button eine neue Box erstellt, ist der Datentyp der, der zuletzt eingestellt wurde.
 \\
 So ähnlich sieht es auch bei den Input-Feldern aus. Die Input-Felder erhalten eine onClick Callback Methode. Mit dieser ruft man eine Methode auf die genau wie beim Dropdown durch die Array-Variable this.Input iteriert, nach derselben ID schaut und beim Fund den richtigen Datensatz mit dem neuen Wert aktualisiert. 
 \\
@@ -199,11 +199,11 @@ const dropDownId = uuid()
 \end{lstlisting}
 Bevor die Box erstellt wird, muss geklärt werden, ob die zu erstellende Box, die erste ist. 
 Wenn es das erste Element ist, soll eine Box erstellt werden, die kein Minus Button hat.
-Da sonst die Boxen komplett verschwinden könnten und somit kein passendes JSON File erstellt werden könnte.  Hierfür wird der State-Array NewInputArray herangezogen. Hier befinden sich die Komponenten. Ist dieser leer, bedeutet es, dass dieser eine Box erstellen muss, die kein Minus Button verfügt. Sind in dem Array schon Boxen drin, wird eine Komponente erstellt mit Minus Button. Was in der Abbildung 7.2 dargestellt wird.  
+Da sonst die Boxen komplett verschwinden könnten und somit kein passendes JSON File erstellt werden könnte.  Hierfür wird der State-Array NewInputArray herangezogen. Hier befinden sich die Komponenten. Ist dieser leer, bedeutet es, dass dieser, eine Box erstellen muss, die kein Minus Button verfügt. Sind in dem Array schon Boxen drin, wird eine Komponente erstellt mit Minus Button. Was in der Abbildung 7.2 dargestellt wird.  
 Beim Erstellen der Box fügt man diese Box in die State-Variable NewInputArray hinzu und die ID Daten in die this.Input Array.
  
 \\
-Beim Minus Button also dem Entfernen der Boxen, ist es wichtig darauf zu achten, dass man aus den beiden Arrays die Daten entfernt. Dies kann man gut über die Funktion Filter ausführen. Elemente, die nicht diese ID haben werden, zunächst in ein separates Array gespeichert und anschließend werden diese temporären Arrays herangezogen um die Arrays this.Input und this.state.NewInputArray neu zu befüllen.
+Beim Minus Button also dem Entfernen der Boxen, ist es wichtig darauf zu achten, dass man aus den beiden Arrays die Daten entfernt. Dies kann man gut über die Funktion Filter ausführen. Elemente, die nicht diese ID haben, werden zunächst in ein separates Array gespeichert und anschließend werden diese temporären Arrays herangezogen um die Arrays this.Input und this.state.NewInputArray neu zu befüllen.
 Damit kann man aus der NewInputState Variable als auch in der this.Input Variable die Komponenten und Daten entfernen, die nicht mehr benötigt werden.
 \hfill \break
 \hfill \break
@@ -231,7 +231,7 @@ this.Input.forEach(item => {
       tmpInput = item.input;
 \end{lstlisting}
 Der erste Fall ist, wenn die erste Komponentenbox den Radio Slider aktiviert. 
-Zunächst wird durch NewOutputArray iteriert. Das Ziel davon ist, die Komponente anzusprechen die, die gleiche ID hat wie die in der Radio Slider ID. Damit wird sichergestellt, dass wenn mehrere Output-Boxen vorhanden sind, diese nicht angesprochen werden und damit wird die alte Box aus dem Array entfernt. Mittels unshift wird die neue Output-Box, die jetzt beim DropDown und beim Inputfeld disabled sind, in diese temporäre Array-Variable gespeichert und mit Hilfe der this.setState wird der eigentliche Array, der die Boxen darstellt, aktualisiert. Am Ende werden noch die Daten in ein Objekt gespeichert und in die erste Position des this.Output Arrays hinzugefügt. 
+Zunächst wird durch NewOutputArray iteriert. Das Ziel davon ist, die Komponente anzusprechen die, die gleiche ID hat wie die in der Radio Slider ID. Damit wird sichergestellt, dass wenn mehrere Output-Boxen vorhanden sind, diese nicht angesprochen werden. Mittels unshift wird die neue Output-Box, die jetzt beim DropDown und beim Inputfeld disabled sind, in diese temporäre Array-Variable gespeichert und mit Hilfe der this.setState wird der eigentliche Array, der die Boxen darstellt, aktualisiert. Am Ende werden noch die Daten in ein Objekt gespeichert und in die erste Position des this.Output Arrays hinzugefügt. 
 So hat man die Darstellung, sowie die Daten aktualisiert.
 
 \begin{lstlisting}
@@ -268,7 +268,7 @@ if(item.isEdit === true){
           this.Output[0] = obj;
 \end{lstlisting}
 Ist die Komponente nicht die erste, wird der zweite Fall behandelt. Beim zweiten Fall wird eine neue Output-Box erstellt und in die NewOutputArray Variable hinzugefügt. Wichtig dabei ist, dass die Komponenten-Elemente alle eine neue ID bekommen, bis auf RadioSlider ID. Hier wird die ID von der Input-Box Radio Slider verwendet. Diese ID wird für Fall 4 eingesetzt. Bei den Fällen 3 und 4 geht es um das Ausschalten des Radio Sliders.
-Wird der Radio Slider ausgeschaltet, wird überprüft, ob das erste Element dies ausgeführt hat oder nicht. Führt das erste Element diese Aktion aus, wird alles sowie in Fall 1 ausgeführt bis auf einem Aspekt. Der DropDown und das Inputfeld werden nicht mehr aus Disabled geschaltet, da diese Output-Box nicht mehr mit der Input-Box in Abhängigkeit steht. 
+Wird der Radio Slider ausgeschaltet, wird überprüft, ob das erste Element dies ausgeführt hat oder nicht. Führt das erste Element diese Aktion aus, wird alles sowie in Fall 1 ausgeführt bis auf einen Aspekt. Der DropDown und das Inputfeld werden nicht mehr aus Disabled geschaltet, da diese Output-Box nicht mehr mit der Input-Box in Abhängigkeit steht. 
 Wird nicht die erste Komponente ausgeschaltet, wird Fall 4 behandelt. Das Ergebnis hiervon ist, dass Entfernen der Output-Box. Hier wird wie in Fall 1 durch die NewOutputArray iteriert. Ist eine Komponente vorhanden mit der gleichen ID, wird diese entfernt. Damit auch die Daten verschwinden wird mit der Filter Methode durch die this.Output iteriert. 
 \begin{lstlisting}
 this.Output = this.Output.filter(obj => (
@@ -297,9 +297,9 @@ Wird dieser Store in einer Komponente importiert, kann man die dort definierten 
 
 \section{Ergebnis}
 Bevor man die JSON-Datei erstellt, erhält man über diese View noch eine Übersicht. 
-Klickt man im Navigationsbar auf Home, wird der Prozess verworfen. Ist man mit dem Prozess zufrieden, kann man über Bestätigen den Prozess speichern, indem aus dem Objekt ein JSON wird und dieser in deriie Datenbank transferiert und gespeichert wird. 
+Klickt man im Navigationsbar auf Home, wird der Prozess verworfen. Ist man mit dem Prozess zufrieden, kann man über Bestätigen den Prozess speichern, indem aus dem Objekt ein JSON wird und dieser in die Datenbank transferiert und gespeichert wird. 
 Um die Daten anzuzeigen wird erst einmal die Variable aus dem Modellierstore importiert. 
-Mittels der Destruction Methode kann man auf die einzelnen Variablen zugreifen. In dem man mit der Foreach durch die Input und Output Arrays iteriert, holt man jede hinzugefügte Input und Output Information. 
+Mittels der ES6 Spread Methode kann man auf die einzelnen Variablen zugreifen. In dem man mit der Foreach durch die Input und Output Arrays iteriert, holt man jede hinzugefügte Input und Output Information. 
 Diese Daten werden in den Klassen Member gespeichert. Die UI Elemente beziehen ihre Informationen aus diesen Membervariablen. 
 
 \begin{figure}[ht]
@@ -312,7 +312,7 @@ Diese Daten werden in den Klassen Member gespeichert. Die UI Elemente beziehen i
 
 \section{Mit der Komponente interagieren}
 
-Über die Fetch Methode werden die JSON-Daten, die man über die Webapp in der Ergebnis-View bestätigt hat, aus der Datenbank geholt. Bevor man mit aus diesen Daten ein Formular erstellt werden kann, muss eine Interaktionsmöglichkeit geschaffen werden. 
+Über die Fetch Methode werden die JSON-Daten, die man über die Webapp in der Ergebnis-View bestätigt hat, aus der Datenbank geholt. Bevor man aus diesen Daten ein Formular erstellen kann, muss eine Interaktionsmöglichkeit geschaffen werden. 
 In der Home wird durch die JSON Files iteriert und alle Daten werden in Cards geschrieben. Klickt man auf diese Card, kommt auf eine neue View, die es dem User erlaubt mit dem Formular zu interagieren.
 \begin{figure}[ht]
 \centering
@@ -394,7 +394,7 @@ Im Code hat sich nur eine Kleinigkeit getan.
 \end{lstlisting}
 Es werden IDs erstellt damit man weiterhin die Verbindung von Komponente und Daten hat. So kann man weiterhin interagieren wie schon auch bei der ersten Modellierungs View. 
 
-Ist man fertig kann man über Update die Veränderungen bestätigen. Hier erscheint eine die View Result. Hier werden nochmal alle Daten angezeigt. Ist man zufrieden kann man über Bestätigen die Daten speichern. Der einzige Unterschied hier ist, dass diesmal keine Add Methode sonderen eine Update Methode ausgeführt wird. Da der bestehende Datensatz nur aktualisiert werden muss. Durch die ID wird erkannt um welchen Datensatz es sich handelt. Im Backend wird dann Update aufgerufen. Da dies im Kapitel Backend näher ausgeführt ist, sei hier nur gesagt, dass durch den Where der richtige Datensatz ausgewählt wird, mit den neuen Datensatz aktualisiert und wieder in die DB geschrieben wird. 
+Ist man fertig kann man über Update die Veränderungen bestätigen. Hier erscheint die View Result. Hier werden nochmal alle Daten angezeigt. Ist man zufrieden kann man über Bestätigen die Daten speichern. Der einzige Unterschied hier ist, dass diesmal keine Add Methode sonderen eine Update Methode ausgeführt wird. Da der bestehende Datensatz nur aktualisiert werden muss. Durch die ID wird erkannt um welchen Datensatz es sich handelt. Im Backend wird dann Update aufgerufen. Da dies im Kapitel Backend näher ausgeführt ist, sei hier nur gesagt, dass durch die SQL Where Klausel der richtige Datensatz ausgewählt wird, mit den neuen Datensatz aktualisiert und wieder in die DB geschrieben wird. 
 
 
 \section{JSON Files erstellen und hochladen}
@@ -444,8 +444,8 @@ In diesem Stil soll ein JSON Konstrukt aussehen, damit ohne Komplikationen ein F
 Die Webapp lädt über die Fetch Funktion, die im Abschnitt Backend näher beleuchtet ist, diese JSON Files. Im Bereich Home wo man über den Plus Button das Modal aufruft, wird jetzt der zweite Button definiert. Hier wird nur ein Callback hinzugefügt, der den Zweck hat, den User zum Pfad /jsonfiles zu befördern. 
 Damit man so ein JSON File nutzen kann, muss man dem User eine Bedienmöglichkeit geben. Für jedes JSON File gibt es einen entsprechenden Button. Klickt man auf diesen werden alle Informationen die in dem JSON File vorhanden sind genutzt, um eine Komponente zu erstellen.
 
-Damit dies funktioniert, muss man zunächst vom Modellierstore die Variable allCreateProzesses in die JSON-File Page importieren. Da dies ein MobX Array ist, muss zunächst über die Destruction Methode, die sich darin befindenden Daten, in eine separate Variable laden. Nun iteriert man durch diese neue Variable. Für jede JSON File wird ein Button erstellt. Der Name des JSON Files wird zur Beschriftung des Buttons verwendet. 
-Zudem hat der Button auch die ID, die in der JSON das ein Prozess beschreibt, aufgeführt ist. 
+Damit dies funktioniert, muss man zunächst vom Modellierstore die Variable allCreateProzesses in die JSON-File Page importieren. Da dies ein MobX Array ist, muss zunächst über die ES6 Spread Methode, die sich darin befindenden Daten, in eine separate Variable laden. Nun iteriert man durch diese neue Variable. Für jede JSON File wird ein Button erstellt. Der Name des JSON Files wird zur Beschriftung des Buttons verwendet. 
+Zudem hat der Button auch die ID, die in der JSON aufgeführt ist. 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=12cm]{Pictures/json_File.png}
@@ -483,7 +483,7 @@ module.exports = {
 };
 \end{lstlisting}
 Weiter muss noch ein Modell für die Tabelle erstellt werden. 
-Hier definiert man zunächst die Spalten sowie welche Datentypen die  gespeichert werden sollen. Für unsere Prozessdaten werden hier ID genommen, die vom Typ UUID sind. Für die Prozessdaten nehmen wir den Typ JSON. Die Methode synch. wird aufgerufen um das Sequelize Modell das die Tabelle repräsentiert synchron zu der Tabelle zu halten.
+Hier definiert man zunächst die Spalten sowie welche Datentypen   gespeichert werden sollen. Für die Prozessdaten werden hier ID genommen, die vom Typ UUID sind. Für die Prozessdaten nehmen wir den Typ JSON. Die Methode synch. wird aufgerufen um das Sequelize Modell das die Tabelle repräsentiert synchron zu der Tabelle zu halten.
  \begin{lstlisting}
 module.exports = function (sequelize, DataTypes) {
     const Prozess = sequelize.define('Prozess', {
@@ -505,7 +505,7 @@ module.exports = function (sequelize, DataTypes) {
 };
 \end{lstlisting}
 Jetzt kann die Route definiert werden. In dem Ordner Router kann die Datei Prozess.js erstellt werden. Wichtig hierbei ist es express, router sowie sequelize zu importieren.
-Mit der Methode router.get fängt man GET Anfragen von anderen Systemen ab.
+Mit der Middleware Methode router.get fängt man GET Anfragen von anderen Systemen ab.
  \begin{lstlisting}
 router.get('/', function (req, res, next) {
     Prozess.findAll().then(allProzess => {
@@ -538,7 +538,7 @@ router.post('/', function (req, res, next) {
 });
 \end{lstlisting}
 
-Damit Prozesse auch verändert werden können, wird noch eine zusätzliche POST Methode angelegt. Damit diese POST Methode sich von der anderen unterscheidet definiert man hier noch etwas in den Pfad hinzu. Hierfür wird /update verwendet. Hier wird genau wie beim vorherigen POST die Daten von dem Request Objekt in Variable überführt. Anschließend wird mit dem Sequelize Objekt die Methode update() aufgerufen. Diese Methode repräsentiert die Abfrage update in mysql. Als Parameter wird der Prozess übergeben. Um den richtigen Datensatz zu verändern, setzt man noch die Where Klausel ein. Stimmt die ID mit einer ID in der Tabelle überein, wird die Zeile mit dem neuen Prozess überschrieben. 
+Damit Prozesse auch verändert werden können, wird noch eine zusätzliche POST Methode angelegt. Damit diese POST Methode sich von der anderen unterscheidet erhält der Pfad noch einen Zusatz. Im Projekt wird /update verwendet. Hier werden genau wie beim vorherigen POST die Daten von dem Request Objekt in Variable überführt. Anschließend wird mit dem Sequelize Objekt die Methode update() aufgerufen. Diese Methode repräsentiert die Abfrage update in mysql. Als Parameter wird der Prozess übergeben. Um den richtigen Datensatz zu verändern, setzt man noch die Where Klausel ein. Stimmt die ID mit einer ID in der Tabelle überein, wird die Zeile mit dem neuen Prozess überschrieben. 
  \begin{lstlisting}
 router.post('/update', function (req, res, next) {
 
@@ -555,7 +555,7 @@ router.post('/update', function (req, res, next) {
 });
 \end{lstlisting}
 
-Zu guter Letzt wird noch eine Methode definiert, um nicht mehr benötigte Datensätze zu löschen. Um dies zu erreichen, wird die Methode delete verwendet. Der Pfad wird hier mit “:ID” ergänzt. Das Ziel davon ist, die ID von dem Prozess das gelöscht werden soll, zu nutzen, um den passenden Prozess in der Datenbank zu löschen.
+Zu guter Letzt wird noch eine Methode definiert, um nicht mehr benötigte Datensätze zu löschen. Um dies zu erreichen, wird die Methode delete verwendet. Der Pfad wird hier mit “:ID” ergänzt. Das Ziel davon ist, die ID von dem Prozess, das gelöscht werden soll, zu nutzen, um den passenden Prozess in der Datenbank zu löschen.
  \begin{lstlisting}
 router.delete('/:ID', function (req, res, next) {
     var id = req.params.ID || '';
@@ -565,7 +565,7 @@ router.delete('/:ID', function (req, res, next) {
 });
 \end{lstlisting}
 \\
-Um schon vorhandene JSON Files zu laden wird ein Modell von CreateJsonFiles erstellt. Die createJsonFile hat denselben Aufbau wie Prozess. Daher wird dieser nicht genauer erläutert. Das wichtigste ist die Route. Da man hier nur die JSON Files laden will, braucht es nur die GET Methode. Diese ist wie die Methode bei Prozess aufgebaut. Der Unterschied ist nur, dass das Datenmodell jetzt das createJsonFile ist. 
+Um schon vorhandene JSON Files zu laden wird ein Modell von CreateJsonFiles erstellt. Die createJsonFile hat denselben Aufbau wie Prozess. Daher wird dieser nicht genauer erläutert. Das wichtigste ist die Route. Da nur die JSON Files gefordert sind, braucht es nur die GET Methode. Diese ist wie die Methode bei Prozess aufgebaut. Der Unterschied ist nur, dass das Datenmodell jetzt  createJsonFile ist. 
 Jetzt kann man auch vom Node Modul auf diese JSON Files zugreifen.
 So kann die Webapp jetzt diese Files laden und auf diese zugreifen.
 
@@ -574,7 +574,8 @@ So kann die Webapp jetzt diese Files laden und auf diese zugreifen.
 
 
 \chapter{Fazit / Ausblick}
-Das Resultat dieses Projekts ist, eine Webapp, die über JSON Dateien eine Formularkomponente entsprechend der Input-Daten erstellt. Man hat die Wahl über  die Webapp solch eine JSON Dateien zu erstellen oder von der API die mit der Datenbank verknüpft ist, JSON Dateien, die manuell erstellt wurden, laden. Der User ist in der Lage mit diesen Formularen zu interagieren. Als Beispiel hierfür der Schalter Prozess. Dieser Prozess hat als Input Größe den Typen Boolean und als Wert FALSE. Durch die daraus erzeugte Formularkomponente, die einen Button zur Verfügung stellt, kann durch den klick auf diesen Button interagiert werden. Das Ergebnis dabei ist das Ein- oder Ausschalten dieser Boolean Variable.
+Das Resultat dieses Projekts ist, eine Webapp, die über JSON Dateien eine Formularkomponente entsprechend der Input-Daten erstellt. Man hat die Wahl über  die Webapp solch eine JSON Dateien zu erstellen oder von der API die mit der Datenbank verknüpft ist, JSON Dateien, die manuell erstellt wurden, zu laden. Der User ist in der Lage mit diesen Formularen zu interagieren. Als Beispiel hierfür der Schalter Prozess. Dieser Prozess hat als Input Größe den Typen Boolean und als Wert FALSE. Durch die daraus erzeugte Formularkomponente, die einen Button zur Verfügung stellt, kann durch den Klick auf diesen Button interagiert werden. Das Ergebnis dabei ist das Ein- oder Ausschalten dieser Boolean Variable. Mit den hier gewonnen Erkenntnissen ist die Basis gelegt für die Modellierung von den verschiedensten Prozessen. Zwar müssen noch ein paar mehr Fälle abgedeckt werden, dies kann nun schneller und besser umgesetzt werden. 
+
 
 
 
