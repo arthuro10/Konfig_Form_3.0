@@ -84,9 +84,7 @@ Gerade für Single Page Applications wird React häufig verwendet. Im Gegensatz 
 UUID steht für Universally Unique Identifier. Auch als GUID bekannt (Globally Unique Identifier). Diese ID ist 128 bit groß und garantiert globale Einzigartigkeit. \cite{rfc4122} Damit kann sichergestellt werden, dass Komponente die eine ID zugewiesen bekommen haben, immer eindeutig ansprechbar sind.
 
 \section{MobX}
-Eine alternative Möglichkeit um auf Events zu reagieren. 
-Wenn Komponenten bei einem Event neu gerendert werden sollen, muss die Komponente mit der Observable Annotation markiert, der Store, der das MobX Konstrukt repräsentiert, importiert und als Variable in diese Komponente hinzugefügt werden. 
-Damit kann eine Mehrzahl an Komponenten auf das gleiche Event reagieren, ohne viele Event Listener implementiert zu haben.
+Um States zu verwalten wird MobX eingesetzt. Verändern sich States wird die Komponente, in denen sich diese States befinden, neu gerendert. Sollen Komponente auf States hören die außerhalb des eigenen Wirkungsbereichs liegen, benutzt man einen Store. In diesen Stores werden die States und die Funktionen, die diese States manipulieren, definiert. Über das Pattern Observable, können die Komponente als Observer, die observable States observieren. Bei Veränderungen dieser States reagieren die Komponenten, die diese States implementiert haben, sofort und triggern die Render Funktion. 
 
 
 
